@@ -363,7 +363,7 @@ export default function Footer() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
+                    className="w-full py-3 rounded-lg bg-linear-to-r from-cyan-500 to-blue-500 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
                   >
                     اشترك الآن
                   </button>
