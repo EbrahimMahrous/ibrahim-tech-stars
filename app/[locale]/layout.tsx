@@ -8,13 +8,10 @@ export default function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const locale = params.locale;
+  const { locale } = params;
 
   return (
-    <div
-      dir={locale === "ar" ? "rtl" : "ltr"}
-      // className="text-white"
-    >
+    <div dir={locale === "ar" ? "rtl" : "ltr"}>
       <Header />
       <main>{children}</main>
       <Footer />
