@@ -4,8 +4,8 @@ import { Canvas } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { Suspense, useState, useEffect, useMemo } from "react";
 import { SpaceParticles, Stars } from "../3d";
+import { usePathname } from "next/navigation";
 
-// SVG Icons - Custom components
 const SendIcon = ({ className = "" }) => (
   <svg
     className={className}
@@ -97,7 +97,6 @@ const ClientCanvas = () => {
         className="cursor-pointer"
       >
         <Suspense fallback={null}>
-          {/* <Stars /> */}
           <SpaceParticles />
           <ambientLight intensity={0.3} color="#001122" />
           <directionalLight
@@ -107,12 +106,16 @@ const ClientCanvas = () => {
           />
         </Suspense>
       </Canvas>
-      {/* <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black" /> */}
     </>
   );
 };
 
 export default function ConsultationSection() {
+  const pathname = usePathname();
+  const [content, setContent] = useState<any>(null);
+  const locale = pathname.split("/")[1] || "ar";
+  const isArabic = locale === "ar";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -133,12 +136,33 @@ export default function ConsultationSection() {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const module = await import(
+          `@/content/${locale}/components/sections/consultation-section`
+        );
+        setContent(module.consultationSectionContent);
+      } catch (error) {
+        console.error("Error loading consultation section content:", error);
+        const fallback = await import(
+          `@/content/ar/components/sections/consultation-section`
+        );
+        setContent(fallback.consultationSectionContent);
+      }
+    };
+
+    loadContent();
+  }, [locale]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     if (activeContactMethod === "whatsapp") {
-      const whatsappMessage = `مرحباً، أنا ${formData.name}%0Aأريد استشارة حول: ${formData.message}%0Aرقم هاتفي: ${formData.phone}%0Aبريدي: ${formData.email}%0Aالوقت المناسب: ${formData.preferredTime}`;
+      const whatsappMessage = isArabic
+        ? `مرحباً، أنا ${formData.name}%0Aأريد استشارة حول: ${formData.message}%0Aرقم هاتفي: ${formData.phone}%0Aبريدي: ${formData.email}%0Aالوقت المناسب: ${formData.preferredTime}`
+        : `Hello, I'm ${formData.name}%0AI want a consultation about: ${formData.message}%0AMy phone: ${formData.phone}%0AMy email: ${formData.email}%0APreferred time: ${formData.preferredTime}`;
       window.open(
         `https://wa.me/201234567890?text=${whatsappMessage}`,
         "_blank",
@@ -170,38 +194,32 @@ export default function ConsultationSection() {
     }, 3000);
   };
 
-  const consultationTypes = [
-    {
-      value: "general",
-      label: "استشارة عامة",
-      icon: "💡",
-      desc: "مناقشة فكرة مشروعك",
-    },
-    {
-      value: "technical",
-      label: "استشارة تقنية",
-      icon: "⚙️",
-      desc: "تقييم الجدوى التقنية",
-    },
-    {
-      value: "strategy",
-      label: "استشارة استراتيجية",
-      icon: "🎯",
-      desc: "تخطيط لمسار المشروع",
-    },
-    {
-      value: "review",
-      label: "مراجعة مشروع",
-      icon: "🔍",
-      desc: "مراجعة مشروع قائم",
-    },
-  ];
+  if (!content) {
+    return (
+      <section
+        id="consultation"
+        className="relative overflow-hidden py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900"
+        dir={isArabic ? "rtl" : "ltr"}
+      >
+        <div className="container relative mx-auto px-4 sm:px-6">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-2 mb-6 text-purple-400">
+              <span className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" />
+              <span className="text-sm md:text-base">
+                {isArabic ? "جاري التحميل..." : "Loading..."}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
-      id="الاستشارة"
+      id={content.sectionId}
       className="relative overflow-hidden py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900"
-      dir="rtl"
+      dir={isArabic ? "rtl" : "ltr"}
     >
       {isClient && (
         <div className="absolute inset-0 overflow-hidden">
@@ -228,7 +246,7 @@ export default function ConsultationSection() {
           >
             <SparkleIcon className="text-purple-400 w-5 h-5" />
             <span className="text-purple-400 font-medium text-sm">
-              استشارة مجانية 30 دقيقة
+              {content.additionalTexts.free30Minutes}
             </span>
           </motion.div>
 
@@ -236,15 +254,17 @@ export default function ConsultationSection() {
             <span className="relative inline-block">
               <span className="absolute inset-0 bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 blur-2xl opacity-30"></span>
               <span className="relative bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                استشارة مجانية
+                {content.title.freeConsultation}
               </span>
             </span>
             <br />
-            <span className="text-white mt-2 block">لمشروعك التقني </span>
+            <span className="text-white mt-2 block">
+              {content.title.forYourTechProject}
+            </span>
           </h2>
 
           <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            اختر طريقة التواصل المناسبة لك وابدأ رحلة تحويل فكرتك إلى مشروع ناجح
+            {content.description.chooseMethod}
           </p>
         </motion.div>
 
@@ -274,37 +294,28 @@ export default function ConsultationSection() {
                     </div>
 
                     <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                      تم طلب الاستشارة بنجاح!
+                      {content.successMessages.title}
                     </h3>
 
                     <div className="max-w-md mx-auto mb-8">
                       <p className="text-gray-300 text-lg mb-6">
                         {activeContactMethod === "whatsapp"
-                          ? "تم فتح واتساب، يمكنك بدء المحادثة الآن"
+                          ? content.successMessages.whatsapp
                           : activeContactMethod === "phone"
-                            ? "جاري تحويلك للاتصال الهاتفي..."
-                            : "شكراً لثقتك! سأتواصل معك خلال 24 ساعة لتحديد موعد الاستشارة."}
+                            ? content.successMessages.phone
+                            : content.successMessages.default}
                       </p>
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                          <div className="text-cyan-400 text-2xl mb-2">📧</div>
-                          <p className="text-sm text-gray-300">
-                            تأكيد على بريدك
-                          </p>
-                        </div>
-                        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                          <div className="text-green-400 text-2xl mb-2">📞</div>
-                          <p className="text-sm text-gray-300">
-                            اتصال على رقمك
-                          </p>
-                        </div>
-                        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                          <div className="text-purple-400 text-2xl mb-2">
-                            🗓️
+                        {content.steps.map((step: any, index: number) => (
+                          <div
+                            key={index}
+                            className="p-4 rounded-xl bg-white/5 border border-white/10"
+                          >
+                            <div className="text-2xl mb-2">{step.icon}</div>
+                            <p className="text-sm text-gray-300">{step.text}</p>
                           </div>
-                          <p className="text-sm text-gray-300">تحديد الموعد</p>
-                        </div>
+                        ))}
                       </div>
                     </div>
 
@@ -314,32 +325,35 @@ export default function ConsultationSection() {
                       whileTap={{ scale: 0.95 }}
                       className="px-8 py-3 rounded-xl bg-linear-to-r from-gray-800 to-gray-900 border border-gray-700 hover:border-gray-600 transition-all duration-300 font-medium"
                     >
-                      طلب استشارة أخرى
+                      {content.buttons.anotherConsultation}
                     </motion.button>
                   </motion.div>
                 ) : (
                   <>
                     <div className="text-center mb-8">
                       <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                        ابدأ استشارتك الآن
+                        {content.title.mainTitle}
                       </h3>
                       <p className="text-gray-400">
-                        اختر طريقة التواصل المناسبة واملأ النموذج لبدء استشارتك
-                        المجانية الان
+                        {content.additionalTexts.chooseMethodAndFill}
                       </p>
                     </div>
-                    {/* نموذج البيانات */}
+
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-gray-300 mb-3 text-right text-sm font-medium">
-                            الاسم الكامل *
+                          <label
+                            className="block text-gray-300 mb-3 text-sm font-medium"
+                            style={{ textAlign: isArabic ? "right" : "left" }}
+                          >
+                            {content.labels.name}
                           </label>
                           <input
                             type="text"
                             required
-                            className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-right"
-                            placeholder="كيف يمكنني مناداتك؟"
+                            className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
+                            style={{ textAlign: isArabic ? "right" : "left" }}
+                            placeholder={content.placeholders.name}
                             value={formData.name}
                             onChange={(e) =>
                               setFormData({ ...formData, name: e.target.value })
@@ -348,14 +362,18 @@ export default function ConsultationSection() {
                         </div>
 
                         <div>
-                          <label className="block text-gray-300 mb-3 text-right text-sm font-medium">
-                            رقم الهاتف *
+                          <label
+                            className="block text-gray-300 mb-3 text-sm font-medium"
+                            style={{ textAlign: isArabic ? "right" : "left" }}
+                          >
+                            {content.labels.phone}
                           </label>
                           <input
                             type="tel"
                             required
-                            className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-right"
-                            placeholder="+20 123 456 7890"
+                            className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
+                            style={{ textAlign: isArabic ? "right" : "left" }}
+                            placeholder={content.placeholders.phone}
                             value={formData.phone}
                             onChange={(e) =>
                               setFormData({
@@ -368,14 +386,18 @@ export default function ConsultationSection() {
                       </div>
 
                       <div>
-                        <label className="block text-gray-300 mb-3 text-right text-sm font-medium">
-                          البريد الإلكتروني *
+                        <label
+                          className="block text-gray-300 mb-3 text-sm font-medium"
+                          style={{ textAlign: isArabic ? "right" : "left" }}
+                        >
+                          {content.labels.email}
                         </label>
                         <input
                           type="email"
                           required
-                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-right"
-                          placeholder="example@domain.com"
+                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
+                          style={{ textAlign: isArabic ? "right" : "left" }}
+                          placeholder={content.placeholders.email}
                           value={formData.email}
                           onChange={(e) =>
                             setFormData({ ...formData, email: e.target.value })
@@ -384,11 +406,20 @@ export default function ConsultationSection() {
                       </div>
 
                       <div>
-                        <label className="block text-gray-300 mb-3 text-right text-sm font-medium">
-                          نوع الاستشارة المطلوبة
+                        <label
+                          className="block text-gray-300 mb-3 text-sm font-medium"
+                          style={{ textAlign: isArabic ? "right" : "left" }}
+                        >
+                          {content.labels.consultationType}
                         </label>
                         <select
-                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-right appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiA5TDEyIDE1TDE4IDkiIHN0cm9rZT0iIzlDQTREQiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=')] bg-no-repeat bg-position-[left_1rem_center]"
+                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
+                          style={{
+                            textAlign: isArabic ? "right" : "left",
+                            backgroundPosition: isArabic
+                              ? "left 1rem center"
+                              : "right 1rem center",
+                          }}
                           value={formData.consultationType}
                           onChange={(e) =>
                             setFormData({
@@ -397,24 +428,34 @@ export default function ConsultationSection() {
                             })
                           }
                         >
-                          {consultationTypes.map((type) => (
+                          {content.consultationTypes.map((type: any) => (
                             <option
                               key={type.value}
                               value={type.value}
-                              className="bg-gray-900 text-right"
+                              className="bg-gray-900"
+                              style={{ textAlign: isArabic ? "right" : "left" }}
                             >
-                              {type.label} - {type.desc}
+                              {type.icon} {type.label} - {type.desc}
                             </option>
                           ))}
                         </select>
                       </div>
 
                       <div>
-                        <label className="block text-gray-300 mb-3 text-right text-sm font-medium">
-                          الوقت المناسب للاتصال
+                        <label
+                          className="block text-gray-300 mb-3 text-sm font-medium"
+                          style={{ textAlign: isArabic ? "right" : "left" }}
+                        >
+                          {content.labels.preferredTime}
                         </label>
                         <select
-                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-right appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiA5TDEyIDE1TDE4IDkiIHN0cm9rZT0iIzlDQTREQiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=')] bg-no-repeat bg-position-[left_1rem_center]"
+                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all"
+                          style={{
+                            textAlign: isArabic ? "right" : "left",
+                            backgroundPosition: isArabic
+                              ? "left 1rem center"
+                              : "right 1rem center",
+                          }}
                           value={formData.preferredTime}
                           onChange={(e) =>
                             setFormData({
@@ -423,39 +464,32 @@ export default function ConsultationSection() {
                             })
                           }
                         >
-                          <option value="" className="bg-gray-900 text-right">
-                            اختر الوقت المناسب
-                          </option>
-                          <option
-                            value="morning"
-                            className="bg-gray-900 text-right"
-                          >
-                            الصباح (9 ص - 12 م)
-                          </option>
-                          <option
-                            value="afternoon"
-                            className="bg-gray-900 text-right"
-                          >
-                            الظهر (12 م - 4 م)
-                          </option>
-                          <option
-                            value="evening"
-                            className="bg-gray-900 text-right"
-                          >
-                            المساء (4 م - 8 م)
-                          </option>
+                          {content.preferredTimes.map((time: any) => (
+                            <option
+                              key={time.value}
+                              value={time.value}
+                              className="bg-gray-900"
+                              style={{ textAlign: isArabic ? "right" : "left" }}
+                            >
+                              {time.label}
+                            </option>
+                          ))}
                         </select>
                       </div>
 
                       <div>
-                        <label className="block text-gray-300 mb-3 text-right text-sm font-medium">
-                          اخبرني عن مشروعك *
+                        <label
+                          className="block text-gray-300 mb-3 text-sm font-medium"
+                          style={{ textAlign: isArabic ? "right" : "left" }}
+                        >
+                          {content.labels.message}
                         </label>
                         <textarea
                           required
                           rows={4}
-                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all resize-none text-right"
-                          placeholder="ما هي فكرة مشروعك؟ ما الذي تريد تحقيقه؟ أي مشاكل تواجهها؟"
+                          className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all resize-none"
+                          style={{ textAlign: isArabic ? "right" : "left" }}
+                          placeholder={content.placeholders.message}
                           value={formData.message}
                           onChange={(e) =>
                             setFormData({
@@ -479,23 +513,22 @@ export default function ConsultationSection() {
                               : "bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 hover:shadow-purple-500/30"
                         }`}
                       >
-                        {/* تأثير تألق */}
                         <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-1000"></div>
 
                         <span className="relative">
                           {isSubmitting ? (
                             <>
                               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin inline-block mr-2" />
-                              جاري الإرسال...
+                              {content.buttons.submitting}
                             </>
                           ) : (
                             <>
                               <SendIcon className="w-5 h-5 inline-block ml-2" />
                               {activeContactMethod === "whatsapp"
-                                ? "ارسل عبر واتساب الآن"
+                                ? content.buttons.whatsapp
                                 : activeContactMethod === "phone"
-                                  ? "اتصل بي الآن"
-                                  : "ابدأ استشارتك المجانية"}
+                                  ? content.buttons.phone
+                                  : content.buttons.startConsultation}
                             </>
                           )}
                         </span>
@@ -518,13 +551,15 @@ export default function ConsultationSection() {
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-linear-to-r from-blue-500/10 to-purple-500/10 border border-blue-400/20">
             <div className="text-blue-400 animate-pulse">🚀</div>
             <p className="text-gray-300">
-              لا تتردد!{" "}
-              <span className="text-blue-400 font-bold">30 دقيقة مجانية</span>{" "}
-              قد تكون نقطة التحول لمشروعك
+              {content.additionalTexts.dontHesitate}{" "}
+              <span className="text-blue-400 font-bold">
+                {content.additionalTexts.free30MinutesHighlight}
+              </span>{" "}
+              {content.additionalTexts.turningPoint}
             </p>
           </div>
           <p className="text-gray-500 mt-4">
-            اختر الطريقة المناسبة لك وابدأ رحلة نجاح مشروعك اليوم
+            {content.additionalTexts.chooseMethodAndStart}
           </p>
         </motion.div>
       </div>

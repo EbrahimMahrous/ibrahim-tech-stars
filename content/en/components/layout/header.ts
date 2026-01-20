@@ -1,0 +1,141 @@
+export const headerContent = {
+  // Navigation Items
+  navItems: {
+    home: {
+      label: "Home",
+      title: "Home - Ibrahim Dev",
+      ariaLabel: "Navigate to home page",
+    },
+    webSolutions: {
+      label: "Web Solutions",
+      title: "Web Development Solutions",
+      ariaLabel: "View web development services",
+      items: {
+        frontendDeveloper: {
+          label: "Professional Frontend Developer",
+          title: "Frontend Website Development",
+          keywords: ["web developer", "frontend development", "website coding"],
+        },
+        wordpress: {
+          label: "WordPress Development",
+          title: "WordPress Website Design & Development",
+          keywords: ["wordpress", "wordpress websites", "wordpress themes"],
+        },
+        shopify: {
+          label: "Shopify Stores",
+          title: "Shopify E-commerce Store Design",
+          keywords: ["online store", "shopify", "e-commerce"],
+        },
+        zid: {
+          label: "Zid E-commerce Platform",
+          title: "Zid E-commerce Platform Development",
+          keywords: ["zid store", "zid platform", "saudi e-commerce"],
+        },
+        salla: {
+          label: "Salla Stores",
+          title: "Salla E-commerce Store Development",
+          keywords: ["salla store", "salla platform", "online shopping"],
+        },
+      },
+    },
+    salesEngineer: {
+      label: "Sales Engineer",
+      title: "Technical Sales Engineer Solutions",
+      ariaLabel: "Technical sales engineer services",
+      keywords: ["sales engineer", "technical solutions", "sales consulting"],
+    },
+    customerServices: {
+      label: "Customer Service",
+      title: "Customer Support & Service",
+      ariaLabel: "Customer support services",
+      keywords: ["customer service", "technical support", "client assistance"],
+    },
+    personalAssistant: {
+      label: "Personal Assistant",
+      title: "Virtual Personal Assistant Services",
+      ariaLabel: "Personal assistance services",
+      keywords: ["personal assistant", "virtual assistant", "task management"],
+    },
+    extras: {
+      label: "More",
+      title: "Additional Services & Skills",
+      ariaLabel: "View additional services",
+      items: {
+        english: {
+          label: "English Lessons",
+          title: "English Language Learning",
+          keywords: ["english lessons", "language learning", "language skills"],
+        },
+        certificates: {
+          label: "Professional Certificates",
+          title: "Professional Accredited Certificates",
+          keywords: [
+            "professional certificates",
+            "accreditations",
+            "certified training",
+          ],
+        },
+        awards: {
+          label: "Awards & Recognition",
+          title: "Professional Awards & Achievements",
+          keywords: ["awards", "recognition", "professional achievements"],
+        },
+        proudBeginnings: {
+          label: "Career Journey & Experience",
+          title: "Professional Career Journey & Experience",
+          keywords: [
+            "career beginnings",
+            "work experience",
+            "professional journey",
+          ],
+        },
+      },
+    },
+  },
+
+  // Buttons
+  buttons: {
+    consultation: {
+      label: "Free Consultation",
+      title: "Free web development consultation",
+      ariaLabel: "Get a free consultation",
+    },
+    languageSwitch: {
+      arabic: "العربية",
+      english: "English",
+      switchToArabic: "Arabic version of the website",
+      switchToEnglish: "English version of the website",
+    },
+    darkMode: {
+      toggle: "Toggle dark mode",
+      switchTheme: "Switch between dark and light mode",
+      toggleMobile: "Toggle theme",
+    },
+    mobileMenu: {
+      open: "Open main menu",
+      close: "Close menu",
+      showMenu: "Show website menu",
+    },
+  },
+
+  // Logo
+  logo: {
+    alt: "Ibrahim Logo - Innovative Digital Solutions",
+    title: "Ibrahim - Innovative Digital Solutions for Vision 2030",
+    ariaLabel: "Ibrahim - Home",
+  },
+
+  // Navigation
+  navigation: {
+    mainNav: "Main Navigation",
+    servicesMenu: "Services Menu",
+    subServices: "Sub Services",
+    mobileNav: "Mobile Navigation",
+  },
+
+  // Language
+  language: {
+    current: "en",
+    switch: "ar",
+  },
+};

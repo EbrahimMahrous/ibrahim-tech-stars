@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { FaSun, FaMoon, FaGlobe, FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
@@ -13,9 +13,7 @@ export default function Header() {
   const locale = pathname.split("/")[1] || "ar";
   const isArabic = locale === "ar";
 
-  const switchLanguage = isArabic ? "en" : "ar";
-  const switchedPath = pathname.replace(`/${locale}`, `/${switchLanguage}`);
-
+  const [content, setContent] = useState<any>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
@@ -23,6 +21,22 @@ export default function Header() {
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const module = await import(
+          `@/content/${locale}/components/layout/header`
+        );
+        setContent(module.headerContent);
+      } catch (error) {
+        console.error("Error loading header content:", error);
+        const fallback = await import(`@/content/ar/components/layout/header`);
+        setContent(fallback.headerContent);
+      }
+    };
+
+    loadContent();
+  }, [locale]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -59,168 +73,127 @@ export default function Header() {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown);
   };
 
-  // SEO Optimized Navigation Items with Arabic and English Keywords
-  const navItems = [
-    {
-      href: `/${locale}`,
-      label: isArabic ? "الرئيسية" : "Home",
-      title: isArabic ? "الصفحة الرئيسية - ابراهيم ديف" : "Home - Ibrahim Dev",
-      ariaLabel: isArabic
-        ? "الانتقال إلى الصفحة الرئيسية"
-        : "Navigate to home page",
-    },
-    {
-      type: "dropdown" as const,
-      key: "web-solutions",
-      label: isArabic ? "حلول الويب" : "Web Solutions",
-      title: isArabic ? "حلول وتطوير مواقع الويب" : "Web Development Solutions",
-      ariaLabel: isArabic
-        ? "عرض خدمات تطوير الويب"
-        : "View web development services",
-      items: [
-        {
-          href: `/${locale}/web-solutions/frontend-developer`,
-          label: isArabic
-            ? "مطور ويب احترافي"
-            : "Professional Frontend Developer",
-          title: isArabic
-            ? "تطوير واجهات مواقع الويب"
-            : "Frontend Website Development",
-          keywords: isArabic
-            ? ["مطور ويب", "تطوير مواقع", "برمجة واجهات"]
-            : ["web developer", "frontend development", "website coding"],
-        },
-        {
-          href: `/${locale}/web-solutions/wordpress`,
-          label: isArabic ? "تطوير ووردبريس" : "WordPress Development",
-          title: isArabic
-            ? "تصميم وتطوير مواقع ووردبريس"
-            : "WordPress Website Design & Development",
-          keywords: isArabic
-            ? ["وردبريس", "مواقع ووردبريس", "قوالب ووردبريس"]
-            : ["wordpress", "wordpress websites", "wordpress themes"],
-        },
-        {
-          href: `/${locale}/web-solutions/shopify`,
-          label: isArabic ? "متاجر شوبيفاي" : "Shopify Stores",
-          title: isArabic
-            ? "تصميم متاجر شوبيفاي الإلكترونية"
-            : "Shopify E-commerce Store Design",
-          keywords: isArabic
-            ? ["متجر الكتروني", "شوبيفاي", "تجارة الكترونية"]
-            : ["online store", "shopify", "e-commerce"],
-        },
-        {
-          href: `/${locale}/web-solutions/zid`,
-          label: isArabic ? "منصة زد للتجارة" : "Zid E-commerce Platform",
-          title: isArabic
-            ? "تطوير متاجر على منصة زد"
-            : "Zid E-commerce Platform Development",
-          keywords: isArabic
-            ? ["متجر زد", "منصة زد", "تجارة الكترونية سعودية"]
-            : ["zid store", "zid platform", "saudi e-commerce"],
-        },
-        {
-          href: `/${locale}/web-solutions/salla`,
-          label: isArabic ? "متاجر سلة" : "Salla Stores",
-          title: isArabic
-            ? "تطوير متاجر على منصة سلة"
-            : "Salla E-commerce Store Development",
-          keywords: isArabic
-            ? ["متجر سلة", "منصة سلة", "تجارة الكترونية"]
-            : ["salla store", "salla platform", "online shopping"],
-        },
-      ],
-    },
-    {
-      href: `/${locale}/sales-engineer`,
-      label: "خبير مبيعات",
-      title: isArabic
-        ? "مهندس مبيعات حلول تقنية"
-        : "Technical Sales Engineer Solutions",
-      ariaLabel: isArabic
-        ? "خدمات مهندس المبيعات التقنية"
-        : "Technical sales engineer services",
-      keywords: isArabic
-        ? ["مهندس مبيعات", "حلول تقنية", "استشارات مبيعات"]
-        : ["sales engineer", "technical solutions", "sales consulting"],
-    },
-    {
-      href: `/${locale}/customer-services`,
-      label: isArabic ? "خدمة عملاء" : "Professional Customer Service",
-      title: isArabic ? "خدمة ودعم العملاء" : "Customer Support & Service",
-      ariaLabel: isArabic ? "خدمات دعم العملاء" : "Customer support services",
-      keywords: isArabic
-        ? ["خدمة عملاء", "دعم فني", "مساعدة عملاء"]
-        : ["customer service", "technical support", "client assistance"],
-    },
-    {
-      href: `/${locale}/personal-assistant`,
-      label: isArabic ? "مساعد شخصي" : "Virtual Personal Assistant",
-      title: isArabic
-        ? "خدمات المساعد الشخصي الافتراضي"
-        : "Virtual Personal Assistant Services",
-      ariaLabel: isArabic
-        ? "خدمات المساعدة الشخصية"
-        : "Personal assistance services",
-      keywords: isArabic
-        ? ["مساعد شخصي", "مساعدة افتراضية", "تنظيم المهام"]
-        : ["personal assistant", "virtual assistant", "task management"],
-    },
-    {
-      type: "dropdown" as const,
-      key: "extras",
-      label: isArabic ? "المزيد" : "More",
-      title: isArabic ? "خدمات ومهارات إضافية" : "Additional Services & Skills",
-      ariaLabel: isArabic ? "عرض خدمات إضافية" : "View additional services",
-      items: [
-        {
-          href: `/${locale}/extras/english`,
-          label: isArabic ? "دروس الإنجليزية" : "English Lessons",
-          title: isArabic
-            ? "تعلم اللغة الإنجليزية"
-            : "English Language Learning",
-          keywords: isArabic
-            ? ["دروس انجليزية", "تعلم اللغة", "مهارات لغوية"]
-            : ["english lessons", "language learning", "language skills"],
-        },
-        {
-          href: `/${locale}/extras/certificates`,
-          label: isArabic ? "شهادات معتمدة" : "Professional Certificates",
-          title: isArabic
-            ? "الشهادات المهنية المعتمدة"
-            : "Professional Accredited Certificates",
-          keywords: isArabic
-            ? ["شهادات مهنية", "اعتمادات", "تدريب معتمد"]
-            : [
-                "professional certificates",
-                "accreditations",
-                "certified training",
-              ],
-        },
-        {
-          href: `/${locale}/extras/awards`,
-          label: isArabic ? "جوائز وتكريمات" : "Awards & Recognition",
-          title: isArabic
-            ? "الجوائز والإنجازات المهنية"
-            : "Professional Awards & Achievements",
-          keywords: isArabic
-            ? ["جوائز", "تكريمات", "انجازات مهنية"]
-            : ["awards", "recognition", "professional achievements"],
-        },
-        {
-          href: `/${locale}/extras/proud-beginnings`,
-          label: isArabic ? "البدايات والخبرات" : "Career Journey & Experience",
-          title: isArabic
-            ? "رحلة العمل والخبرات المهنية"
-            : "Professional Career Journey & Experience",
-          keywords: isArabic
-            ? ["البدايات", "خبرات عمل", "رحلة مهنية"]
-            : ["career beginnings", "work experience", "professional journey"],
-        },
-      ],
-    },
-  ];
+  // Build navItems from content
+  const navItems = useMemo(() => {
+    if (!content) return [];
+
+    return [
+      {
+        href: `/${locale}`,
+        label: content.navItems.home.label,
+        title: content.navItems.home.title,
+        ariaLabel: content.navItems.home.ariaLabel,
+      },
+      {
+        type: "dropdown" as const,
+        key: "web-solutions",
+        label: content.navItems.webSolutions.label,
+        title: content.navItems.webSolutions.title,
+        ariaLabel: content.navItems.webSolutions.ariaLabel,
+        items: [
+          {
+            href: `/${locale}/web-solutions/frontend-developer`,
+            label: content.navItems.webSolutions.items.frontendDeveloper.label,
+            title: content.navItems.webSolutions.items.frontendDeveloper.title,
+            keywords:
+              content.navItems.webSolutions.items.frontendDeveloper.keywords,
+          },
+          {
+            href: `/${locale}/web-solutions/wordpress`,
+            label: content.navItems.webSolutions.items.wordpress.label,
+            title: content.navItems.webSolutions.items.wordpress.title,
+            keywords: content.navItems.webSolutions.items.wordpress.keywords,
+          },
+          {
+            href: `/${locale}/web-solutions/shopify`,
+            label: content.navItems.webSolutions.items.shopify.label,
+            title: content.navItems.webSolutions.items.shopify.title,
+            keywords: content.navItems.webSolutions.items.shopify.keywords,
+          },
+          {
+            href: `/${locale}/web-solutions/zid`,
+            label: content.navItems.webSolutions.items.zid.label,
+            title: content.navItems.webSolutions.items.zid.title,
+            keywords: content.navItems.webSolutions.items.zid.keywords,
+          },
+          {
+            href: `/${locale}/web-solutions/salla`,
+            label: content.navItems.webSolutions.items.salla.label,
+            title: content.navItems.webSolutions.items.salla.title,
+            keywords: content.navItems.webSolutions.items.salla.keywords,
+          },
+        ],
+      },
+      {
+        href: `/${locale}/sales-engineer`,
+        label: content.navItems.salesEngineer.label,
+        title: content.navItems.salesEngineer.title,
+        ariaLabel: content.navItems.salesEngineer.ariaLabel,
+        keywords: content.navItems.salesEngineer.keywords,
+      },
+      {
+        href: `/${locale}/customer-services`,
+        label: content.navItems.customerServices.label,
+        title: content.navItems.customerServices.title,
+        ariaLabel: content.navItems.customerServices.ariaLabel,
+        keywords: content.navItems.customerServices.keywords,
+      },
+      {
+        href: `/${locale}/personal-assistant`,
+        label: content.navItems.personalAssistant.label,
+        title: content.navItems.personalAssistant.title,
+        ariaLabel: content.navItems.personalAssistant.ariaLabel,
+        keywords: content.navItems.personalAssistant.keywords,
+      },
+      {
+        type: "dropdown" as const,
+        key: "extras",
+        label: content.navItems.extras.label,
+        title: content.navItems.extras.title,
+        ariaLabel: content.navItems.extras.ariaLabel,
+        items: [
+          {
+            href: `/${locale}/extras/english`,
+            label: content.navItems.extras.items.english.label,
+            title: content.navItems.extras.items.english.title,
+            keywords: content.navItems.extras.items.english.keywords,
+          },
+          {
+            href: `/${locale}/extras/certificates`,
+            label: content.navItems.extras.items.certificates.label,
+            title: content.navItems.extras.items.certificates.title,
+            keywords: content.navItems.extras.items.certificates.keywords,
+          },
+          {
+            href: `/${locale}/extras/awards`,
+            label: content.navItems.extras.items.awards.label,
+            title: content.navItems.extras.items.awards.title,
+            keywords: content.navItems.extras.items.awards.keywords,
+          },
+          {
+            href: `/${locale}/extras/proud-beginnings`,
+            label: content.navItems.extras.items.proudBeginnings.label,
+            title: content.navItems.extras.items.proudBeginnings.title,
+            keywords: content.navItems.extras.items.proudBeginnings.keywords,
+          },
+        ],
+      },
+    ];
+  }, [content, locale]);
+
+  const switchLanguage = isArabic ? "en" : "ar";
+  const switchedPath = pathname.replace(`/${locale}`, `/${switchLanguage}`);
+
+  if (!content) {
+    return (
+      <header className="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <div className="w-32 h-10 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
+          <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-full"></div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header
@@ -240,12 +213,8 @@ export default function Header() {
         {/* Logo with SEO */}
         <Link
           href={`/${locale}`}
-          aria-label={isArabic ? "إبراهيم - الرئيسية" : "Ibrahim - Home"}
-          title={
-            isArabic
-              ? "إبراهيم - حلول رقمية مبتكرة لرؤية 2030"
-              : "Ibrahim - Innovative Digital Solutions for Vision 2030"
-          }
+          aria-label={content.logo.ariaLabel}
+          title={content.logo.title}
           className="group relative flex items-center"
           itemScope
           itemType="https://schema.org/Organization"
@@ -258,11 +227,7 @@ export default function Header() {
           >
             <Image
               src="/logo/logo-ibrahim-tr.png"
-              alt={
-                isArabic
-                  ? "شعار إبراهيم - حلول رقمية مبتكرة"
-                  : "Ibrahim Logo - Innovative Digital Solutions"
-              }
+              alt={content.logo.alt}
               width={140}
               height={40}
               priority
@@ -274,7 +239,7 @@ export default function Header() {
         {/* Desktop Navigation - Centered */}
         <nav
           className="text-white hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 gap-4 lg:gap-6 text-sm"
-          aria-label={isArabic ? "القائمة الرئيسية" : "Main Navigation"}
+          aria-label={content.navigation.mainNav}
           role="navigation"
           itemScope
           itemType="https://schema.org/SiteNavigationElement"
@@ -307,7 +272,7 @@ export default function Header() {
                   <div
                     className="absolute top-full mt-1 right-0 hidden group-hover:flex flex-col bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-lg shadow-2xl w-48 p-2 space-y-1 border border-gray-200 dark:border-gray-700"
                     role="menu"
-                    aria-label={isArabic ? "قائمة الخدمات" : "Services Menu"}
+                    aria-label={content.navigation.servicesMenu}
                   >
                     {item.items.map((subItem) => (
                       <Link
@@ -357,12 +322,8 @@ export default function Header() {
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            aria-label={isArabic ? "تبديل الوضع الداكن" : "Toggle dark mode"}
-            title={
-              isArabic
-                ? "تبديل وضع الليل والنهار"
-                : "Switch between dark and light mode"
-            }
+            aria-label={content.buttons.darkMode.toggle}
+            title={content.buttons.darkMode.switchTheme}
           >
             {darkMode ? (
               <FaSun className="w-5 h-5 text-yellow-500" />
@@ -378,20 +339,22 @@ export default function Header() {
               className="text-white flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
               aria-label={
                 isArabic
-                  ? "تبديل اللغة إلى الإنجليزية"
-                  : "Switch language to Arabic"
+                  ? content.buttons.languageSwitch.switchToArabic
+                  : content.buttons.languageSwitch.switchToEnglish
               }
               title={
                 isArabic
-                  ? "English version of the website"
-                  : "النسخة العربية من الموقع"
+                  ? content.buttons.languageSwitch.switchToEnglish
+                  : content.buttons.languageSwitch.switchToArabic
               }
               rel="alternate"
               hrefLang={switchLanguage}
             >
               <FaGlobe className="w-4 h-4 text-green-500" />
               <span className="text-sm font-medium">
-                {isArabic ? "English" : "العربية"}
+                {isArabic
+                  ? content.buttons.languageSwitch.english
+                  : content.buttons.languageSwitch.arabic}
               </span>
             </Link>
           </motion.div>
@@ -401,17 +364,11 @@ export default function Header() {
             <Link
               href={`/${locale}/consultation`}
               className="px-5 py-2.5 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-green-500/40 transition-all duration-300"
-              aria-label={
-                isArabic ? "احصل على استشارة مجانية" : "Get a free consultation"
-              }
-              title={
-                isArabic
-                  ? "استشارة مجانية في تطوير الويب"
-                  : "Free web development consultation"
-              }
+              aria-label={content.buttons.consultation.ariaLabel}
+              title={content.buttons.consultation.title}
               itemProp="url"
             >
-              {isArabic ? "استشارة مجانية" : "Free Consultation"}
+              {content.buttons.consultation.label}
             </Link>
           </motion.div>
         </div>
@@ -423,8 +380,8 @@ export default function Header() {
             onClick={() => setDarkMode(!darkMode)}
             className="p-2"
             whileTap={{ scale: 0.95 }}
-            aria-label={isArabic ? "تبديل الوضع الداكن" : "Toggle dark mode"}
-            title={isArabic ? "تبديل وضع التصميم" : "Toggle theme"}
+            aria-label={content.buttons.darkMode.toggle}
+            title={content.buttons.darkMode.toggleMobile}
           >
             {darkMode ? (
               <FaSun className="w-5 h-5 text-yellow-500" />
@@ -444,9 +401,9 @@ export default function Header() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="relative flex flex-col justify-center items-center w-10 h-10 group"
-            aria-label={isArabic ? "فتح القائمة الرئيسية" : "Open main menu"}
+            aria-label={content.buttons.mobileMenu.open}
             aria-expanded={menuOpen}
-            title={isArabic ? "عرض قائمة الموقع" : "Show website menu"}
+            title={content.buttons.mobileMenu.showMenu}
           >
             <span
               className={`block w-5 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all duration-300 ${
@@ -488,7 +445,7 @@ export default function Header() {
         transition={{ duration: 0.3 }}
         className="md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 p-4 flex-col gap-2"
         dir={isArabic ? "rtl" : "ltr"}
-        aria-label={isArabic ? "القائمة المتنقلة" : "Mobile Navigation"}
+        aria-label={content.navigation.mobileNav}
         role="navigation"
         itemScope
         itemType="https://schema.org/SiteNavigationElement"
@@ -542,7 +499,7 @@ export default function Header() {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden"
                   role="menu"
-                  aria-label={isArabic ? "خدمات فرعية" : "Sub Services"}
+                  aria-label={content.navigation.subServices}
                 >
                   <div className="flex flex-col pr-4 gap-1">
                     {item.items.map((subItem) => (
@@ -591,14 +548,12 @@ export default function Header() {
           <Link
             href={`/${locale}/consultation`}
             className="block w-full px-4 py-3 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-green-500/40 transition-all text-center"
-            aria-label={
-              isArabic ? "احصل على استشارة مجانية" : "Get a free consultation"
-            }
-            title={isArabic ? "استشارة ويب مجانية" : "Free web consultation"}
+            aria-label={content.buttons.consultation.ariaLabel}
+            title={content.buttons.consultation.title}
             onClick={() => setMenuOpen(false)}
             itemProp="url"
           >
-            {isArabic ? "استشارة مجانية" : "Free Consultation"}
+            {content.buttons.consultation.label}
           </Link>
         </motion.div>
 
@@ -609,18 +564,24 @@ export default function Header() {
             className="flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all font-medium"
             aria-label={
               isArabic
-                ? "النسخة الإنجليزية من الموقع"
-                : "Arabic version of the website"
+                ? content.buttons.languageSwitch.switchToArabic
+                : content.buttons.languageSwitch.switchToEnglish
             }
             title={
-              isArabic ? "English Website Version" : "النسخة العربية للموقع"
+              isArabic
+                ? content.buttons.languageSwitch.switchToEnglish
+                : content.buttons.languageSwitch.switchToArabic
             }
             onClick={() => setMenuOpen(false)}
             rel="alternate"
             hrefLang={switchLanguage}
           >
             <FaGlobe className="w-4 h-4 text-green-500" />
-            <span>{isArabic ? "English Version" : "النسخة العربية"}</span>
+            <span>
+              {isArabic
+                ? content.buttons.languageSwitch.english
+                : content.buttons.languageSwitch.arabic}
+            </span>
           </Link>
         </div>
       </motion.nav>

@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiCode } from "react-icons/fi";
 import {
@@ -11,12 +11,55 @@ import {
   Stars,
   Sparkles,
 } from "@/components/3d";
+import { usePathname } from "next/navigation";
 
 export default function HeroSection() {
+  const pathname = usePathname();
+  const [content, setContent] = useState<any>(null);
+  const locale = pathname.split("/")[1] || "ar";
+  const isArabic = locale === "ar";
+
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const module = await import(
+          `@/content/${locale}/components/sections/hero-section`
+        );
+        setContent(module.heroSectionContent);
+      } catch (error) {
+        console.error("Error loading hero section content:", error);
+        const fallback = await import(
+          `@/content/ar/components/sections/hero-section`
+        );
+        setContent(fallback.heroSectionContent);
+      }
+    };
+
+    loadContent();
+  }, [locale]);
+
+  if (!content) {
+    return (
+      <section className="min-h-screen relative py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900">
+        <div className="relative z-10 container mx-auto px-6 min-h-screen flex flex-col justify-center">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-2 mb-6 text-green-400">
+              <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-sm md:text-base">
+                {isArabic ? "جاري التحميل..." : "Loading..."}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
-      id="الرئيسية"
+      id={content.elements.heroId}
       className="min-h-screen relative py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900"
+      dir={isArabic ? "rtl" : "ltr"}
     >
       <div className="absolute inset-0">
         <Canvas
@@ -24,7 +67,6 @@ export default function HeroSection() {
           className="cursor-pointer"
         >
           <Suspense fallback={null}>
-            {/* <Stars /> */}
             <SpaceParticles count={1500} />
             <ambientLight intensity={0.3} color="#001122" />
             <directionalLight
@@ -52,7 +94,6 @@ export default function HeroSection() {
             />
           </Suspense>
         </Canvas>
-        {/* <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black" /> */}
       </div>
 
       <div className="relative z-10 container mx-auto px-6 min-h-screen flex flex-col justify-center">
@@ -64,7 +105,7 @@ export default function HeroSection() {
         >
           <div className="flex items-center justify-center gap-2 mb-6 text-green-400">
             <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm md:text-base">جاهز لمشاريعكم الجديدة</span>
+            <span className="text-sm md:text-base">{content.status}</span>
           </div>
 
           <motion.h1
@@ -74,10 +115,10 @@ export default function HeroSection() {
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             <span className="block bg-linear-to-r from-green-400 via-cyan-400 to-green-400 bg-clip-text text-transparent animate-gradient">
-              أهلاً وسهلاً
+              {content.title.welcome}
             </span>
             <span className="block text-white mt-4 text-3xl md:text-5xl">
-              في رحلتكم الرقمية نحو التميز
+              {content.title.journey}
             </span>
           </motion.h1>
 
@@ -87,11 +128,13 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            أنا <span className="text-cyan-400 font-semibold">إبراهيم</span>،
-            فريلانسر متخصص في بناء منصات رقمية مبتكرة تلبي رؤية{" "}
-            <span className="text-green-400">2030</span> مع تركيز على تقديم حلول
-            تقنية عالية الجودة تناسب السوق الخليجي والعربي وفق معايير عالمية
-            وأداء فائق
+            {content.description.part1}{" "}
+            <span className="text-cyan-400 font-semibold">
+              {content.description.name}
+            </span>
+            {content.description.part2}{" "}
+            <span className="text-green-400">{content.description.vision}</span>{" "}
+            {content.description.part3}
           </motion.p>
 
           <motion.div
@@ -106,11 +149,11 @@ export default function HeroSection() {
               whileTap={{ scale: 0.95 }}
               onClick={() =>
                 document
-                  .getElementById("التواصل")
+                  .getElementById(content.elements.contactSectionId)
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              <FiMail /> نبدأ مشروعكم
+              <FiMail /> {content.buttons.startProject.text}
             </motion.button>
 
             <motion.button
@@ -119,13 +162,12 @@ export default function HeroSection() {
               whileTap={{ scale: 0.95 }}
               onClick={() =>
                 document
-                  .getElementById("المشاريع")
+                  .getElementById(content.elements.projectsSectionId)
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              <FiCode /> معرض أعمالي
+              <FiCode /> {content.buttons.viewProjects.text}
             </motion.button>
-
           </motion.div>
         </motion.div>
 
@@ -136,7 +178,7 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
         >
-          <span className="text-sm mb-2">استمر في التصفح</span>
+          <span className="text-sm mb-2">{content.scrollIndicator}</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
