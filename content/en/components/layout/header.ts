@@ -1,5 +1,4 @@
 export const headerContent = {
-  // Navigation Items
   navItems: {
     home: {
       label: "Home",
@@ -92,8 +91,6 @@ export const headerContent = {
       },
     },
   },
-
-  // Buttons
   buttons: {
     consultation: {
       label: "Free Consultation",
@@ -118,14 +115,12 @@ export const headerContent = {
     },
   },
 
-  // Logo
   logo: {
     alt: "Ibrahim Logo - Innovative Digital Solutions",
     title: "Ibrahim - Innovative Digital Solutions for Vision 2030",
     ariaLabel: "Ibrahim - Home",
   },
 
-  // Navigation
   navigation: {
     mainNav: "Main Navigation",
     servicesMenu: "Services Menu",
@@ -133,7 +128,6 @@ export const headerContent = {
     mobileNav: "Mobile Navigation",
   },
 
-  // Language
   language: {
     current: "en",
     switch: "ar",

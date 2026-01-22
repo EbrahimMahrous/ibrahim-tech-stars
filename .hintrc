@@ -20,7 +20,10 @@
       "default",
       {
         "ignore": [
-          "backdrop-filter"
+          "backdrop-filter",
+          "text-wrap",
+          "text-wrap: balance",
+          "text-wrap: pretty"
         ]
       }
     ],

@@ -1,5 +1,4 @@
 export const headerContent = {
-  // Navigation Items
   navItems: {
     home: {
       label: "الرئيسية",
@@ -84,8 +83,7 @@ export const headerContent = {
       },
     },
   },
-  
-  // Buttons
+
   buttons: {
     consultation: {
       label: "استشارة مجانية",
@@ -109,23 +107,20 @@ export const headerContent = {
       showMenu: "عرض قائمة الموقع",
     },
   },
-  
-  // Logo
+
   logo: {
     alt: "شعار إبراهيم - حلول رقمية مبتكرة",
     title: "إبراهيم - حلول رقمية مبتكرة لرؤية 2030",
     ariaLabel: "إبراهيم - الرئيسية",
   },
-  
-  // Navigation
+
   navigation: {
     mainNav: "القائمة الرئيسية",
     servicesMenu: "قائمة الخدمات",
     subServices: "خدمات فرعية",
     mobileNav: "القائمة المتنقلة",
   },
-  
-  // Language
+
   language: {
     current: "ar",
     switch: "en",

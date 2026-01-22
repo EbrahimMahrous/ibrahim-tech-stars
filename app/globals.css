@@ -1,1 +1,442 @@
 @import "tailwindcss";
+
+/* ========================
+  Custom color variations
+   ======================== */
+:root {
+  /* Primary colors - Light mode */
+  --color-primary: #10b981;      
+  --color-secondary: #06b6d4;    
+  --color-accent: #8b5cf6;       
+  --color-dark: #1f2937;         
+  --color-light: #f9fafb;       
+  
+  /* Additional colors */
+  --color-success: #10b981;      
+  --color-warning: #f59e0b;     
+  --color-danger: #ef4444;       
+  --color-info: #3b82f6;         
+  
+  /* Color gradients used */
+  --gradient-primary: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --gradient-secondary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  --gradient-dark: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  --gradient-space: linear-gradient(180deg, #111827 0%, #000000 50%, #111827 100%);
+}
+
+.dark {
+  /* Primary colors - Dark mode */
+  --color-primary: #34d399;      
+  --color-secondary: #22d3ee;   
+  --color-accent: #a78bfa;       
+  --color-dark: #0f172a;        
+  --color-light: #f1f5f9;        
+  
+  /* Neon colors for effects */
+  --color-neon-green: #00ff99;
+  --color-neon-cyan: #00ffff;
+  --color-neon-purple: #bf00ff;
+  --color-neon-pink: #ff00ff;
+}
+
+/* ========================
+  Custom gradients
+======================== */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--color-accent), #ec4899);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+.gradient-space {
+  background: linear-gradient(to bottom, #111827, #000000, #111827);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+}
+
+.gradient-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+}
+
+/* ========================
+  Neon patterns and effects
+   ======================== */
+.neon-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor;
+}
+
+.neon-border {
+  box-shadow: 
+    0 0 5px var(--color-neon-cyan),
+    0 0 10px var(--color-neon-cyan),
+    inset 0 0 5px var(--color-neon-cyan);
+}
+
+.glow-effect {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* ========================
+  Custom animation
+   ======================== */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-slow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-fast {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--color-primary);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 40px var(--color-primary);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================
+  Designated categories
+   ======================== */
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+.animate-gradient-slow {
+  background-size: 200% 200%;
+  animation: gradient-slow 6s ease infinite;
+}
+
+.animate-gradient-fast {
+  background-size: 200% 200%;
+  animation: gradient-fast 1.5s ease infinite;
+}
+
+.animate-typing {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end);
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(135deg, var(--color-accent), #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--color-dark), var(--color-dark)) padding-box,
+              linear-gradient(135deg, var(--color-primary), var(--color-secondary)) border-box;
+}
+
+/* ========================
+  General formats
+   ======================== */
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================
+  Custom shades
+   ======================== */
+.shadow-neon {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.3),
+    0 0 40px rgba(0, 255, 255, 0.2),
+    0 0 60px rgba(0, 255, 255, 0.1);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+}
+
+.shadow-soft {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-hard {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================
+  Custom components
+   ======================== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.space-bg {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    linear-gradient(to bottom, #111827, #000000, #111827);
+}
+
+/* ========================
+  Dark/Light Mode Formats
+   ======================== */
+.dark .dark-invert {
+  filter: invert(1);
+}
+
+.dark .dark-brightness {
+  filter: brightness(1.1);
+}
+
+/* ========================
+  Performance improvements
+   ======================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================
+  Scroll bar formats
+   ======================== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--color-secondary), var(--color-accent));
+}
+
+/* ========================
+  Text formatting
+   ======================== */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ========================
+  RTL/LTR formats
+   ======================== */
+[dir="rtl"] .rtl-mirror {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .text-right {
+  text-align: right;
+}
+
+[dir="rtl"] .text-left {
+  text-align: left;
+}
+
+[dir="ltr"] .text-right {
+  text-align: right;
+}
+
+[dir="ltr"] .text-left {
+  text-align: left;
+}
+
+/* ========================
+  Additional assistance categories
+   ======================== */
+.overflow-visible {
+  overflow: visible !important;
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(12px);
+}
+
+.backdrop-blur-lg {
+  backdrop-filter: blur(8px);
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(6px);
+}
+
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* ========================
+  Effects of separating departments
+   ======================== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    var(--color-secondary),
+    transparent
+  );
+  margin: 4rem 0;
+}
+
+/* ========================
+  Case colors
+   ======================== */
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.bg-success {
+  background-color: var(--color-success);
+}
+
+.bg-warning {
+  background-color: var(--color-warning);
+}
+
+.bg-danger {
+  background-color: var(--color-danger);
+}
+
+.bg-info {
+  background-color: var(--color-info);
+}

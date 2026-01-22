@@ -587,16 +587,17 @@ export default function Header() {
       </motion.nav>
 
       {/* Progress Bar */}
-      <div
-        className="h-px bg-gray-200 dark:bg-gray-800 overflow-hidden"
-        role="presentation"
+      <motion.div
+        className="overflow-hidden bg-gray-200 dark:bg-gray-800"
+        style={{
+          height: scaleX.get() === 0 ? 0 : 1,
+        }}
       >
         <motion.div
-          className="h-full bg-linear-to-l from-green-400 to-cyan-500 origin-right"
+          className="h-px bg-linear-to-l from-green-400 to-cyan-500 origin-right"
           style={{ scaleX }}
-          aria-hidden="true"
         />
-      </div>
+      </motion.div>
     </header>
   );
 }

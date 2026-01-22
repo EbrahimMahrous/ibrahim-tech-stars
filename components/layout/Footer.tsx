@@ -321,7 +321,7 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-gray-900/40 to-gray-900/20 border border-gray-700/50"
+            className="mb-8 p-6 rounded-2xl bg-linear-to-r from-gray-900/40 to-gray-900/20 border border-gray-700/50"
           >
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               {content.contactTitle}
