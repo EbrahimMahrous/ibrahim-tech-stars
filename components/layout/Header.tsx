@@ -21,6 +21,7 @@ export default function Header() {
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
   useEffect(() => {
     const loadContent = async () => {
       try {
@@ -85,44 +86,11 @@ export default function Header() {
         ariaLabel: content.navItems.home.ariaLabel,
       },
       {
-        type: "dropdown" as const,
-        key: "web-solutions",
+        href: `/${locale}/web-solutions`,
         label: content.navItems.webSolutions.label,
         title: content.navItems.webSolutions.title,
         ariaLabel: content.navItems.webSolutions.ariaLabel,
-        items: [
-          {
-            href: `/${locale}/web-solutions/frontend-developer`,
-            label: content.navItems.webSolutions.items.frontendDeveloper.label,
-            title: content.navItems.webSolutions.items.frontendDeveloper.title,
-            keywords:
-              content.navItems.webSolutions.items.frontendDeveloper.keywords,
-          },
-          {
-            href: `/${locale}/web-solutions/wordpress`,
-            label: content.navItems.webSolutions.items.wordpress.label,
-            title: content.navItems.webSolutions.items.wordpress.title,
-            keywords: content.navItems.webSolutions.items.wordpress.keywords,
-          },
-          {
-            href: `/${locale}/web-solutions/shopify`,
-            label: content.navItems.webSolutions.items.shopify.label,
-            title: content.navItems.webSolutions.items.shopify.title,
-            keywords: content.navItems.webSolutions.items.shopify.keywords,
-          },
-          {
-            href: `/${locale}/web-solutions/zid`,
-            label: content.navItems.webSolutions.items.zid.label,
-            title: content.navItems.webSolutions.items.zid.title,
-            keywords: content.navItems.webSolutions.items.zid.keywords,
-          },
-          {
-            href: `/${locale}/web-solutions/salla`,
-            label: content.navItems.webSolutions.items.salla.label,
-            title: content.navItems.webSolutions.items.salla.title,
-            keywords: content.navItems.webSolutions.items.salla.keywords,
-          },
-        ],
+        badge: isArabic ? "الأكثر طلبًا" : "Most Requested",
       },
       {
         href: `/${locale}/sales-engineer`,
@@ -179,17 +147,17 @@ export default function Header() {
         ],
       },
     ];
-  }, [content, locale]);
+  }, [content, locale, isArabic]);
 
   const switchLanguage = isArabic ? "en" : "ar";
   const switchedPath = pathname.replace(`/${locale}`, `/${switchLanguage}`);
 
   if (!content) {
     return (
-      <header className="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg">
+      <header className="fixed top-0 left-0 w-full z-50 bg-gray-900/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <div className="w-32 h-10 bg-gray-200 dark:bg-gray-700 animate-pulse rounded"></div>
-          <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-full"></div>
+          <div className="w-32 h-10 bg-gray-700 animate-pulse rounded"></div>
+          <div className="w-8 h-8 bg-gray-700 animate-pulse rounded-full"></div>
         </div>
       </header>
     );
@@ -197,19 +165,19 @@ export default function Header() {
 
   return (
     <header
-      className={` fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800"
-          : "bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg"
+          ? "bg-gray-900/95 backdrop-blur-xl border-b border-gray-800"
+          : "bg-gray-900/90 backdrop-blur-lg"
       }`}
       dir={isArabic ? "rtl" : "ltr"}
       role="banner"
       itemScope
       itemType="https://schema.org/WPHeader"
     >
-      <div className="absolute inset-0 bg-linear-to-b from-gray-100/30 dark:from-gray-800/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-b from-gray-800/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between relative">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between relative">
         {/* Logo with SEO */}
         <Link
           href={`/${locale}`}
@@ -231,14 +199,14 @@ export default function Header() {
               width={140}
               height={40}
               priority
-              className="object-contain dark:brightness-110"
+              className="object-contain brightness-110"
             />
           </motion.div>
         </Link>
 
         {/* Desktop Navigation - Centered */}
         <nav
-          className="text-white hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 gap-4 lg:gap-6 text-sm"
+          className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 gap-4 lg:gap-6 text-sm"
           aria-label={content.navigation.mainNav}
           role="navigation"
           itemScope
@@ -254,7 +222,7 @@ export default function Header() {
                   itemType="https://schema.org/Service"
                 >
                   <motion.div
-                    className="cursor-pointer px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-cyan-400 transition-colors duration-300 flex items-center gap-1"
+                    className="cursor-pointer px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300 flex items-center gap-1"
                     whileHover={{ scale: 1.05 }}
                     aria-label={item.ariaLabel}
                     title={item.title}
@@ -270,7 +238,7 @@ export default function Header() {
                     </motion.span>
                   </motion.div>
                   <div
-                    className="absolute top-full mt-1 right-0 hidden group-hover:flex flex-col bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-lg shadow-2xl w-48 p-2 space-y-1 border border-gray-200 dark:border-gray-700"
+                    className="absolute top-full mt-1 right-0 hidden group-hover:flex flex-col bg-gray-800/95 backdrop-blur-xl rounded-lg shadow-2xl w-48 p-2 space-y-1 border border-gray-700"
                     role="menu"
                     aria-label={content.navigation.servicesMenu}
                   >
@@ -278,7 +246,7 @@ export default function Header() {
                       <Link
                         key={subItem.href}
                         href={subItem.href}
-                        className="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-cyan-400 transition-all text-right"
+                        className="block px-3 py-2 rounded hover:bg-gray-700 hover:text-cyan-400 transition-all text-right text-gray-300"
                         aria-label={subItem.title}
                         title={subItem.title}
                         role="menuitem"
@@ -298,10 +266,11 @@ export default function Header() {
                 whileHover={{ scale: 1.05 }}
                 itemScope
                 itemType="https://schema.org/Service"
+                className="relative"
               >
                 <Link
                   href={item.href}
-                  className="relative px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-cyan-400 transition-colors duration-300 group"
+                  className="relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300 group flex items-center gap-2"
                   aria-label={item.ariaLabel}
                   title={item.title}
                   itemProp="url"
@@ -319,7 +288,7 @@ export default function Header() {
           {/* Dark Mode Toggle */}
           <motion.button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full hover:bg-gray-800 transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             aria-label={content.buttons.darkMode.toggle}
@@ -328,7 +297,7 @@ export default function Header() {
             {darkMode ? (
               <FaSun className="w-5 h-5 text-yellow-500" />
             ) : (
-              <FaMoon className="w-5 h-5 text-gray-700" />
+              <FaMoon className="w-5 h-5 text-gray-300" />
             )}
           </motion.button>
 
@@ -336,7 +305,7 @@ export default function Header() {
           <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
             <Link
               href={switchedPath}
-              className="text-white flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-700 hover:bg-gray-800 transition-all text-gray-300"
               aria-label={
                 isArabic
                   ? content.buttons.languageSwitch.switchToArabic
@@ -386,7 +355,7 @@ export default function Header() {
             {darkMode ? (
               <FaSun className="w-5 h-5 text-yellow-500" />
             ) : (
-              <FaMoon className="w-5 h-5 text-gray-700" />
+              <FaMoon className="w-5 h-5 text-gray-300" />
             )}
           </motion.button>
 
@@ -406,17 +375,17 @@ export default function Header() {
             title={content.buttons.mobileMenu.showMenu}
           >
             <span
-              className={`block w-5 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all duration-300 ${
+              className={`block w-5 h-0.5 bg-gray-300 transition-all duration-300 ${
                 menuOpen ? "rotate-45 translate-y-1" : "-translate-y-1"
               }`}
             />
             <span
-              className={`block w-5 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all duration-300 mt-1 ${
+              className={`block w-5 h-0.5 bg-gray-300 transition-all duration-300 mt-1 ${
                 menuOpen ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`block w-5 h-0.5 bg-gray-700 dark:bg-gray-300 transition-all duration-300 mt-1 ${
+              className={`block w-5 h-0.5 bg-gray-300 transition-all duration-300 mt-1 ${
                 menuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
               }`}
             />
@@ -443,7 +412,7 @@ export default function Header() {
           },
         }}
         transition={{ duration: 0.3 }}
-        className="md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 p-4 flex-col gap-2"
+        className="md:hidden bg-gray-900/95 backdrop-blur-lg border-t border-gray-700 p-4 flex-col gap-2"
         dir={isArabic ? "rtl" : "ltr"}
         aria-label={content.navigation.mobileNav}
         role="navigation"
@@ -461,7 +430,7 @@ export default function Header() {
               >
                 <button
                   onClick={() => toggleDropdown(item.key)}
-                  className="w-full px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-cyan-400 transition-all border border-transparent hover:border-gray-300 dark:hover:border-gray-600 flex items-center justify-between"
+                  className="w-full px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-cyan-400 transition-all border border-transparent hover:border-gray-600 flex items-center justify-between text-gray-300"
                   aria-label={item.ariaLabel}
                   title={item.title}
                   aria-haspopup="true"
@@ -506,7 +475,7 @@ export default function Header() {
                       <Link
                         key={subItem.href}
                         href={subItem.href}
-                        className="px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-cyan-400 transition-all"
+                        className="px-4 py-2 rounded hover:bg-gray-700 hover:text-cyan-400 transition-all text-gray-300"
                         aria-label={subItem.title}
                         title={subItem.title}
                         onClick={() => {
@@ -529,13 +498,21 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-cyan-400 transition-all border border-transparent hover:border-gray-300 dark:hover:border-gray-600 font-medium"
+              className="px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-cyan-400 transition-all border border-transparent hover:border-gray-600 font-medium flex items-center justify-between text-gray-300 relative"
               aria-label={item.ariaLabel}
               title={item.title}
               onClick={() => setMenuOpen(false)}
               itemProp="url"
             >
               <span itemProp="name">{item.label}</span>
+
+              {item.badge && (
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] font-bold bg-linear-to-r from-green-500 to-cyan-500 text-white px-2 py-0.5 rounded-full">
+                    {item.badge}
+                  </span>
+                </div>
+              )}
             </Link>
           );
         })}
@@ -543,7 +520,7 @@ export default function Header() {
         {/* Mobile CTA Button */}
         <motion.div
           whileTap={{ scale: 0.95 }}
-          className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+          className="mt-4 pt-4 border-t border-gray-700"
         >
           <Link
             href={`/${locale}/consultation`}
@@ -558,10 +535,10 @@ export default function Header() {
         </motion.div>
 
         {/* Mobile Language Switch Full */}
-        <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="pt-4 mt-4 border-t border-gray-700">
           <Link
             href={switchedPath}
-            className="flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all font-medium"
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-gray-600 hover:bg-gray-700 transition-all font-medium text-gray-300"
             aria-label={
               isArabic
                 ? content.buttons.languageSwitch.switchToArabic
@@ -588,7 +565,7 @@ export default function Header() {
 
       {/* Progress Bar */}
       <motion.div
-        className="overflow-hidden bg-gray-200 dark:bg-gray-800"
+        className="overflow-hidden bg-gray-800"
         style={{
           height: scaleX.get() === 0 ? 0 : 1,
         }}

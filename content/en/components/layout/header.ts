@@ -6,36 +6,26 @@ export const headerContent = {
       ariaLabel: "Navigate to home page",
     },
     webSolutions: {
-      label: "Web Solutions",
+      label: "Web & E-Commerce Solutions",
       title: "Web Development Solutions",
       ariaLabel: "View web development services",
-      items: {
-        frontendDeveloper: {
-          label: "Professional Frontend Developer",
-          title: "Frontend Website Development",
-          keywords: ["web developer", "frontend development", "website coding"],
-        },
-        wordpress: {
-          label: "WordPress Development",
-          title: "WordPress Website Design & Development",
-          keywords: ["wordpress", "wordpress websites", "wordpress themes"],
-        },
-        shopify: {
-          label: "Shopify Stores",
-          title: "Shopify E-commerce Store Design",
-          keywords: ["online store", "shopify", "e-commerce"],
-        },
-        zid: {
-          label: "Zid E-commerce Platform",
-          title: "Zid E-commerce Platform Development",
-          keywords: ["zid store", "zid platform", "saudi e-commerce"],
-        },
-        salla: {
-          label: "Salla Stores",
-          title: "Salla E-commerce Store Development",
-          keywords: ["salla store", "salla platform", "online shopping"],
-        },
-      },
+      keywords: [
+        "web developer",
+        "frontend development",
+        "website coding",
+        "wordpress",
+        "wordpress websites",
+        "wordpress themes",
+        "online store",
+        "shopify",
+        "e-commerce",
+        "zid store",
+        "zid platform",
+        "saudi e-commerce",
+        "salla store",
+        "salla platform",
+        "online shopping",
+      ],
     },
     salesEngineer: {
       label: "Sales Engineer",
@@ -61,9 +51,9 @@ export const headerContent = {
       ariaLabel: "View additional services",
       items: {
         english: {
-          label: "English Lessons",
-          title: "English Language Learning",
-          keywords: ["english lessons", "language learning", "language skills"],
+          label: "English Communication (B1)",
+          title: "English Communication (B1)",
+          keywords: ["", "", ""],
         },
         certificates: {
           label: "Professional Certificates",
@@ -80,7 +70,7 @@ export const headerContent = {
           keywords: ["awards", "recognition", "professional achievements"],
         },
         proudBeginnings: {
-          label: "Career Journey & Experience",
+          label: "Proud Beginnings",
           title: "Professional Career Journey & Experience",
           keywords: [
             "career beginnings",

@@ -5,16 +5,15 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "إبراهيم | رحلة البناء الرقمي",
+  title: "إبراهيم | فريلانسر متخصص في تحويل الأفكار إلى مشاريع وحلول تقنية احترافية",
   description: "مهندس واجهات أمامية متخصص في بناء تجارب رقمية استثنائية",
   keywords: ["تطوير ويب", "تصميم جرافيك", "SEO", "متاجر إلكترونية", "Node.js"],
   authors: [{ name: "إبراهيم" }],
   creator: "إبراهيم",
 
   icons: {
-    icon: "/icon-ibrahim.png",
-    shortcut: "/icon-ibrahim.png",
-    apple: "/icon-ibrahim.png",
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
   },
 
   openGraph: {
