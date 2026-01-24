@@ -8,7 +8,7 @@ export const servicesSectionContent = {
   
   title: "Web Development and E-commerce Services",
   
-  description: "As a professional web and e-commerce developer with over 5 years of experience, I offer 8 integrated services that combine the latest development technologies with SEO optimization to maximize your digital presence.",
+  description: "As a professional web and e-commerce developer, I offer 8 integrated services that combine the latest development technologies with SEO optimization to maximize your digital presence.",
   
   meta: {
     provider: "Professional Web Developer",
