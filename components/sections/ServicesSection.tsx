@@ -107,7 +107,7 @@ export default function ServicesSection() {
         setCurrentSlide(
           (prev) => (prev + 1) % (content?.services?.length || 1),
         );
-      }, 5000);
+      }, 60000);
     }
 
     return () => {

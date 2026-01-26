@@ -63,5 +63,22 @@ export const awardsContent = {
   modal: {
     videoTitle: "Recognition Ceremony Video",
     certificateTitle: "Certificate of Appreciation"
+  },
+
+  labels: {
+    recipient: "Recipient",
+    clickToViewCertificate: "Click to view certificate",
+    downloadCertificate: "Download Certificate",
+    youtubeShort: "YouTube Short",
+    recipientLabel: "Recipient: ",
+    clickToView: "Click to view certificate",
+    youtubeShortLabel: "YouTube Short",
+    videoDate: "2024/2025",
+    videoRank: "4th Place",
+    videoEvent: "Academic Excellence Recognition Ceremony",
+    loadingText: "جاري تحميل الجوائز والتكريمات...",
+    loadingAwards: "Loading Awards & Honors...",
+    viewCertificate: "View Certificate",
+    certificateOfAppreciation: "certificate-of-appreciation.jpg"
   }
 };

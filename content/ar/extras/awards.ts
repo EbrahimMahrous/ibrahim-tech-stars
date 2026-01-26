@@ -63,5 +63,22 @@ export const awardsContent = {
   modal: {
     videoTitle: "فيديو حفل التكريم",
     certificateTitle: "شهادة التقدير"
+  },
+
+  labels: {
+    recipient: "المستلم",
+    clickToViewCertificate: "انقر لعرض الشهادة",
+    downloadCertificate: "تحميل الشهادة",
+    youtubeShort: "YouTube Short",
+    recipientLabel: "المستلم: ",
+    clickToView: "انقر لعرض الشهادة",
+    youtubeShortLabel: "YouTube Short",
+    videoDate: "٢٠٢٤/٢٠٢٥",
+    videoRank: "المركز الرابع",
+    videoEvent: "حفل تكريم المتميزين أكاديميًا",
+    loadingText: "جاري تحميل الجوائز والتكريمات...",
+    loadingAwards: "Loading Awards & Honors...",
+    viewCertificate: "عرض الشهادة",
+    certificateOfAppreciation: "شهادة تقدير.jpg"
   }
 };

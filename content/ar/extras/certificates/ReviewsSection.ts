@@ -1,0 +1,90 @@
+export const reviewsContent = {
+  reviews: [
+    {
+      id: 1,
+      client: "Radwa H.",
+      project: "خدمة عملاء - دعم، مساعدة وإدخال بيانات",
+      duration: "شهر و 14 يوم",
+      rating: 5,
+      categories: {
+        professionalism: 5,
+        communication: 5,
+        quality: 5,
+        expertise: 5,
+        delivery: 5,
+        collaboration: 5,
+      },
+      comment:
+        "المستقل من أفضل من تعاملت معهم على المنصة. ملتزم، متعاون، ويتعامل باحترافية عالية. ينفذ المطلوب بدقة ويحرص على جودة العمل والتسليم في الوقت المحدد. أنصح بالتعامل معه بشدة، وبإذن الله سيكون بيننا تعاون مستمر.",
+      response:
+        "شكرًا جزيلًا على كلامك وثقتك وسعدت جدًا بالتعاون معك، وكان التعامل معك في قمة الاحترام وأسعد دائما بتنفيذ أي مشروع لك، وإن شاء الله بينا تعاون مستمر.",
+      image: "/extras/certificates/reviews/review-customer-services.png",
+      link: "https://mostaql.com/u/Ebrahim_MahrOus/reviews/9344830",
+      verified: true,
+    },
+    {
+      id: 2,
+      client: "Aldafor A.",
+      project: "تنفيذ لتصميم موقع من صفحيتين",
+      duration: "8 أشهر و 15 يوم",
+      rating: 5,
+      categories: {
+        professionalism: 5,
+        communication: 5,
+        quality: 5,
+        expertise: 5,
+        delivery: 5,
+        collaboration: 5,
+      },
+      comment:
+        "حقيقة ابراهيم رجل مبدع وامين يهتم بالتفاصيل وبالعميل ويهمه ان فعلا العمل يكون على اكمل وجه ويعمل بكل اتقان سعدت بالعمل معاه وان شاء الله مه ياخر مره",
+      response:
+        "ربي يسعدك ويبارك فيك، شهادتك أعتز فيها جدًا, سعدت وتشرفت بالعمل معاك، وتعامل راقٍ ومحترم منك من البداية للنهاية, وبإذن الله مو آخر شغل بينا، وإن شاء الله الجاي يكون أقوى وأجمل.",
+      image: "/extras/certificates/reviews/review-framer-website.png",
+      link: "https://mostaql.com/u/Ebrahim_MahrOus/reviews/8754267",
+      verified: true,
+    },
+    {
+      id: 3,
+      client: "عبدالحنان ا.",
+      project: "تصميم صور منشورات على التواصل الاجتماعي",
+      duration: "سنة و 6 أشهر",
+      rating: 5,
+      categories: {
+        professionalism: 5,
+        communication: 5,
+        quality: 5,
+        expertise: 5,
+        delivery: 5,
+        collaboration: 5,
+      },
+      comment: "مجتهد و عمله جيد",
+      response:
+        "شكرًا جزيلًا على تقييمك وكلامك الطيب ,سعيد جداً إن العمل نال إعجابك، وإن شاء الله نقدر نتعاون أكثر في المستقبل.",
+      image: "/extras/certificates/reviews/review-designs.png",
+      link: "https://mostaql.com/u/Ebrahim_MahrOus/reviews/7796636",
+      verified: true,
+    },
+  ],
+  labels: {
+    sectionTitle: "تقييمات وتوصيات العملاء",
+    sectionDescription:
+      "آراء العملاء في منصة مستقل حول جودة العمل والاحترافية في التنفيذ",
+    clientReview: "تقييم العميل",
+    myResponse: "ردي على التقييم",
+    responseLabel: "الرد",
+    ratingBreakdown: "تفصيل التقييم",
+    viewOriginalReview: "عرض التقييم الأصلي على مستقل",
+    viewOriginal: "عرض التقييم الأصلي",
+    originalReviewImage: "صورة التقييم الأصلي على منصة مستقل",
+    platformName: "Mostaql.com",
+    categoryLabels: {
+      professionalism: "الاحترافية",
+      communication: "التواصل",
+      quality: "الجودة",
+      expertise: "الخبرة",
+      delivery: "التسليم",
+      collaboration: "التعاون",
+    },
+  },
+};

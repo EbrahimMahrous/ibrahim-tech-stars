@@ -123,7 +123,7 @@ export default function HeroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextStory();
-    }, 15000);
+    }, 30000);
     return () => clearInterval(interval);
   }, [content]);
 
@@ -441,7 +441,7 @@ export default function HeroSection() {
         </div>
 
         {/* Carousel section for bonus stories */}
-        <div className="mt-12 mb-8">
+        {/* <div className="mt-12 mb-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-white">
               {content.moreStories || (isArabic ? "المزيد من قصص النجاح" : "More Success Stories")}
@@ -463,8 +463,6 @@ export default function HeroSection() {
               </button>
             </div>
           </div>
-
-          {/* The carousel */}
           <div className="relative overflow-hidden">
             <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
               {content.stories.map((story, index) => (
@@ -509,8 +507,6 @@ export default function HeroSection() {
               ))}
             </div>
           </div>
-
-          {/* Carousel indicators */}
           <div className="flex justify-center mt-6">
             <div className="flex gap-2">
               {content.stories.map((_, index) => (
@@ -526,7 +522,7 @@ export default function HeroSection() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
