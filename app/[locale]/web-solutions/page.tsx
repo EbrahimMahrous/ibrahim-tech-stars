@@ -23,7 +23,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
   FaChevronDown,
-  FaChevronUp
+  FaChevronUp,
 } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -33,6 +33,7 @@ import {
   SiExpress,
   SiNodedotjs,
 } from "react-icons/si";
+import CTASection from "@/components/UI/CTASection";
 
 export default function WebSolutionsPage() {
   const pathname = usePathname();
@@ -73,49 +74,55 @@ export default function WebSolutionsPage() {
       try {
         const module = await import(`@/content/${locale}/web-solutions`);
         const contentData = module.webSolutionsContent;
-        
+
         const skillsWithIcons = contentData.skills.map((skill: any) => ({
           ...skill,
-          icon: iconMap[skill.iconName] || <FaReact className="text-blue-500" />
+          icon: iconMap[skill.iconName] || (
+            <FaReact className="text-blue-500" />
+          ),
         }));
-        
-        const servicesWithIcons = contentData.optimizationServices.map((service: any) => ({
-          ...service,
-          icon: iconMap[service.iconName] || <FaCog />
-        }));
-        
+
+        const servicesWithIcons = contentData.optimizationServices.map(
+          (service: any) => ({
+            ...service,
+            icon: iconMap[service.iconName] || <FaCog />,
+          }),
+        );
+
         setContent({
           ...contentData,
           skills: skillsWithIcons,
-          optimizationServices: servicesWithIcons
+          optimizationServices: servicesWithIcons,
         });
       } catch (error) {
         console.error("Error loading content:", error);
         const module = await import(`@/content/ar/web-solutions`);
         const contentData = module.webSolutionsContent;
-        
+
         const skillsWithIcons = contentData.skills.map((skill: any) => ({
           ...skill,
-          icon: iconMap[skill.iconName] || <FaReact className="text-blue-500" />
+          icon: iconMap[skill.iconName] || (
+            <FaReact className="text-blue-500" />
+          ),
         }));
-        
-        const servicesWithIcons = contentData.optimizationServices.map((service: any) => ({
-          ...service,
-          icon: iconMap[service.iconName] || <FaCog />
-        }));
-        
+
+        const servicesWithIcons = contentData.optimizationServices.map(
+          (service: any) => ({
+            ...service,
+            icon: iconMap[service.iconName] || <FaCog />,
+          }),
+        );
+
         setContent({
           ...contentData,
           skills: skillsWithIcons,
-          optimizationServices: servicesWithIcons
+          optimizationServices: servicesWithIcons,
         });
       }
     };
 
     loadContent();
   }, [locale]);
-
-  // Moving skills animation
   useEffect(() => {
     const container = skillsContainerRef.current;
     if (!container || !content?.skills) return;
@@ -135,7 +142,7 @@ export default function WebSolutionsPage() {
       container.style.transform = `translateX(-${scrollPos}px)`;
       animationId = requestAnimationFrame(animate);
     };
-    
+
     const startTimeout = setTimeout(() => {
       container.style.transition = "transform 0.1s linear";
       animationId = requestAnimationFrame(animate);
@@ -149,7 +156,6 @@ export default function WebSolutionsPage() {
     };
   }, [content]);
 
-  // Carousel Navigation
   const nextSlide = () => {
     if (!content?.projects) return;
     setCurrentSlide((prev) =>
@@ -213,8 +219,8 @@ export default function WebSolutionsPage() {
           </p>
         </motion.div>
 
-        {/* Skills Infinite Scroll */}
-        <div className="mb-16 relative overflow-hidden">
+        {/* Skills Infinite Scroll - إجبار الاتجاه LTR فقط هنا */}
+        <div className="mb-16 relative overflow-hidden" dir="ltr">
           <div className="absolute bg-linear-to-r from-gray-900 via-transparent to-gray-900 z-10 pointer-events-none" />
           <div
             ref={skillsContainerRef}
@@ -357,7 +363,8 @@ export default function WebSolutionsPage() {
         {/* Optimization Services Accordion */}
         <div className="mb-20">
           <h2 className="text-3xl font-bold mb-10 text-center">
-            {content.optimizationTitle || "Website Optimization and Maintenance Services"}
+            {content.optimizationTitle ||
+              "Website Optimization and Maintenance Services"}
           </h2>
 
           <div className="max-w-4xl mx-auto">
@@ -377,7 +384,9 @@ export default function WebSolutionsPage() {
                   }`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="text-2xl">{service.icon}</div>
+                    <div className="text-2xl" dir="ltr">
+                      {service.icon}
+                    </div>
                     <h3 className="text-xl font-bold text-right">
                       {service.category}
                     </h3>
@@ -428,42 +437,28 @@ export default function WebSolutionsPage() {
         </div>
 
         {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="py-20"
-        >
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-green-400 via-cyan-400 to-blue-400">
-                {content.ctaTitle}
-              </span>
-            </h2>
-
-            <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
-              {content.ctaDescription}
-            </p>
-
-            <div className="flex flex-wrap gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-white font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-lg"
-              >
-                {content.ctaButton1}
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full bg-white/10 text-white font-bold hover:bg-white/20 transition-all border border-white/20 text-lg"
-              >
-                {content.ctaButton2}
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
+        {content.ctaTitle && (
+          <CTASection
+            title={content.ctaTitle}
+            description={content.ctaDescription}
+            buttons={[
+              {
+                text: content.ctaButton1,
+                variant: "primary" as const,
+                href: "/consultation",
+              },
+              {
+                text: content.ctaButton2,
+                variant: "outline" as const,
+                whatsapp: true,
+              },
+            ]}
+            direction={isArabic ? "rtl" : "ltr"}
+            showBackground={false}
+            showGradientTitle={true}
+            className="mt-12"
+          />
+        )}
       </div>
 
       {/* Video Modal */}
@@ -506,7 +501,9 @@ export default function WebSolutionsPage() {
                       <div className="w-20 h-20 rounded-full bg-linear-to-r from-green-500 to-cyan-500 flex items-center justify-center mx-auto mb-4">
                         <FaPlay className="text-white text-2xl ml-1" />
                       </div>
-                      <p className="text-gray-400">{content.watchDemo || "Watch Demo"}</p>
+                      <p className="text-gray-400">
+                        {content.watchDemo || "Watch Demo"}
+                      </p>
                     </div>
                   </div>
                 )}

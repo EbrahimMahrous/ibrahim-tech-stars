@@ -56,6 +56,78 @@ const flagComponents: {
   YE: YE,
 };
 
+// ========================= Greeting Message Component =========================
+interface GreetingMessageProps {
+  country: ArabCountry;
+  typedText: string;
+  isGreetingExiting: boolean;
+  greetingTimer: string;
+  showGreeting: boolean;
+}
+
+function GreetingMessage({
+  country,
+  typedText,
+  isGreetingExiting,
+  greetingTimer,
+  showGreeting,
+}: GreetingMessageProps) {
+  if (!showGreeting) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8, y: -20 }}
+      animate={{
+        opacity: isGreetingExiting ? 0 : 1,
+        scale: isGreetingExiting ? 0.9 : 1,
+        y: isGreetingExiting ? 20 : 0,
+      }}
+      transition={{
+        duration: 0.5,
+        ease: isGreetingExiting ? "easeIn" : "easeOut",
+      }}
+      className="mt-6 mb-8 px-4 w-full"
+    >
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 bg-linear-to-r from-cyan-500/20 to-green-500/20 border border-cyan-500/50 rounded-2xl px-4 sm:px-6 py-4 backdrop-blur-xl max-w-full sm:max-w-md mx-auto w-full">
+        {/* Flag */}
+        <div className="w-14 h-10 md:w-16 md:h-12 rounded-lg overflow-hidden border border-cyan-400/50 shadow-[0_0_20px_rgba(0,255,255,0.3)] shrink-0">
+          <country.Flag className="w-full h-full object-cover" />
+        </div>
+        
+        {/* Country Info */}
+        <div className="text-center sm:text-left flex-1 w-full">
+          {/* Country Name & Code */}
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2 mb-1">
+            <span className="text-lg md:text-xl font-bold text-white">
+              {country.name}
+            </span>
+            <span className="text-xs px-2 py-1 bg-cyan-500/30 text-cyan-300 rounded-full mt-1 sm:mt-0">
+              {country.code}
+            </span>
+          </div>
+          
+          {/* Greeting Text */}
+          <p className="text-gray-200 text-base md:text-lg min-h-6 w-full">
+            <span className="inline-block max-w-full wrap-break-word text-center sm:text-left">
+              {typedText}
+            </span>
+          </p>
+        </div>
+      </div>
+      
+      {/* Timer Message */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ delay: 1 }}
+        className="text-cyan-300/70 text-sm md:text-base mt-2 text-center"
+      >
+        {greetingTimer}
+      </motion.p>
+    </motion.div>
+  );
+}
+
 export default function ArabCountriesCarousel() {
   const pathname = usePathname();
   const [content, setContent] = useState<any>(null);
@@ -142,7 +214,7 @@ export default function ArabCountriesCarousel() {
 
   if (!content) {
     return (
-      <section className="relative overflow-hidden py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900">
+      <section className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 bg-linear-to-b from-gray-900 via-black to-gray-900">
         <div className="relative z-10 text-center mb-12 px-6">
           <div className="flex items-center justify-center gap-2 mb-6 text-green-400">
             <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
@@ -156,8 +228,8 @@ export default function ArabCountriesCarousel() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900"
-      dir={isArabic ? "rtl" : "ltr"}
+      className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 bg-linear-to-b from-gray-900 via-black to-gray-900"
+      dir="ltr"
     >
       {/* Heading */}
       <motion.div
@@ -167,84 +239,52 @@ export default function ArabCountriesCarousel() {
         transition={{ duration: 0.6 }}
         className="relative z-10 text-center mb-12 px-6"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
           <span className="bg-linear-to-r from-cyan-400 via-green-400 to-cyan-400 bg-clip-text text-transparent animate-gradient">
             {content.title}
           </span>
         </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+        <p className="text-gray-400 text-lg md:text-xl max-w-2xl lg:max-w-3xl mx-auto mb-8">
           {content.description}
         </p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-3 bg-linear-to-r from-cyan-500/10 to-green-500/10 border border-cyan-500/30 rounded-2xl px-6 py-4 mb-6"
+          className="inline-flex items-center justify-center gap-3 bg-linear-to-r from-cyan-500/10 to-green-500/10 border border-cyan-500/30 rounded-2xl px-6 py-4 mb-6"
         >
-          <HiOutlineUser className="text-2xl text-cyan-400" />
+          <HiOutlineUser className="text-2xl md:text-3xl text-cyan-400" />
           <div className="text-center">
-            <h3 className="text-xl font-bold text-white mb-1">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
               {content.selectCountry.title}
             </h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-300 text-sm md:text-base">
               {content.selectCountry.subtitle}
             </p>
           </div>
-          <HiOutlineSparkles className="text-2xl text-green-400 animate-pulse" />
+          <HiOutlineSparkles className="text-2xl md:text-3xl text-green-400 animate-pulse" />
         </motion.div>
 
+        {/* Use GreetingMessage Component */}
         {showGreeting && selectedCountry && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: -20 }}
-            animate={{
-              opacity: isGreetingExiting ? 0 : 1,
-              scale: isGreetingExiting ? 0.9 : 1,
-              y: isGreetingExiting ? 20 : 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: isGreetingExiting ? "easeIn" : "easeOut",
-            }}
-            className="mt-6 mb-8"
-          >
-            <div className="inline-flex items-center gap-4 bg-linear-to-r from-cyan-500/20 to-green-500/20 border border-cyan-500/50 rounded-2xl px-6 py-4 backdrop-blur-xl max-w-md mx-auto">
-              <div className="w-14 h-10 rounded-lg overflow-hidden border border-cyan-400/50 shadow-[0_0_20px_rgba(0,255,255,0.3)] shrink-0">
-                <selectedCountry.Flag className="w-full h-full object-cover" />
-              </div>
-              <div className="text-right flex-1" dir={isArabic ? "rtl" : "ltr"}>
-                <div className="flex items-center justify-end gap-2 mb-1">
-                  <span className="text-lg font-bold text-white">
-                    {selectedCountry.name}
-                  </span>
-                  <span className="text-xs px-2 py-1 bg-cyan-500/30 text-cyan-300 rounded-full">
-                    {selectedCountry.code}
-                  </span>
-                </div>
-                <p className="text-gray-200 text-base typing-animation min-h-6">
-                  {typedText}
-                </p>
-              </div>
-            </div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.7 }}
-              transition={{ delay: 1 }}
-              className="text-cyan-300/70 text-sm mt-2"
-            >
-              {content.greetingTimer}
-            </motion.p>
-          </motion.div>
+          <GreetingMessage
+            country={selectedCountry}
+            typedText={typedText}
+            isGreetingExiting={isGreetingExiting}
+            greetingTimer={content.greetingTimer}
+            showGreeting={showGreeting}
+          />
         )}
       </motion.div>
 
       {/* ROW 1 */}
       <div
-        className="relative overflow-hidden mb-10"
+        className="relative overflow-hidden mb-10 lg:mb-12"
         onMouseEnter={() => !showGreeting && setPaused(true)}
         onMouseLeave={() => !showGreeting && setPaused(false)}
       >
         <motion.div
-          className="flex gap-6 w-max"
+          className="flex gap-6 md:gap-8 lg:gap-10 w-max"
           animate={{
             x: paused || showGreeting ? undefined : ["0%", "-50%"],
           }}
@@ -273,7 +313,7 @@ export default function ArabCountriesCarousel() {
         onMouseLeave={() => !showGreeting && setPaused(false)}
       >
         <motion.div
-          className="flex gap-6 w-max"
+          className="flex gap-6 md:gap-8 lg:gap-10 w-max"
           animate={{
             x: paused || showGreeting ? undefined : ["-50%", "0%"],
           }}
@@ -307,24 +347,9 @@ export default function ArabCountriesCarousel() {
           }
         }
 
-        @keyframes typing {
-          from {
-            width: 0;
-          }
-          to {
-            width: 100%;
-          }
-        }
-
         .animate-gradient {
           background-size: 200% 200%;
           animation: gradient 3s ease infinite;
-        }
-
-        .typing-animation {
-          overflow: hidden;
-          white-space: nowrap;
-          text-align: right;
         }
 
         .overflow-visible {
@@ -366,38 +391,42 @@ function CountryCard({
       }}
       className={`
         group
-        min-w-40 p-5 rounded-2xl
+        min-w-32 sm:min-w-40 md:min-w-48 lg:min-w-56 xl:min-w-64
+        p-4 sm:p-5 md:p-6 lg:p-7
+        rounded-2xl md:rounded-3xl
         backdrop-blur-xl
         bg-linear-to-br from-white/5 to-white/2
         border border-white/10
         hover:border-cyan-400/50
         hover:bg-linear-to-br hover:from-cyan-500/10 hover:to-green-500/5
         hover:shadow-[0_0_30px_-8px_rgba(0,255,255,0.3)]
+        md:hover:shadow-[0_0_40px_-10px_rgba(0,255,255,0.4)]
         flex flex-col items-center justify-center
         cursor-pointer
         relative
         overflow-visible
         ${
           isSelected
-            ? "ring-2 ring-cyan-400 ring-offset-2 ring-offset-gray-950"
+            ? "ring-2 md:ring-3 ring-cyan-400 ring-offset-2 md:ring-offset-3 ring-offset-gray-950"
             : ""
         }
       `}
     >
       {/* Glow effect */}
-      <div className="absolute inset-0 bg-linear-to-br from-cyan-500/0 via-cyan-500/0 to-green-500/0 group-hover:from-cyan-500/5 group-hover:via-cyan-500/10 group-hover:to-green-500/5 transition-all duration-500 rounded-2xl" />
+      <div className="absolute inset-0 bg-linear-to-br from-cyan-500/0 via-cyan-500/0 to-green-500/0 group-hover:from-cyan-500/5 group-hover:via-cyan-500/10 group-hover:to-green-500/5 transition-all duration-500 rounded-2xl md:rounded-3xl" />
 
       {/* Flag container */}
       <div
         className="
         relative z-10
-        w-14 h-10
-        mb-3
-        rounded-lg
+        w-12 h-8 sm:w-14 sm:h-10 md:w-16 md:h-12 lg:w-20 lg:h-14
+        mb-2 sm:mb-3 md:mb-4 lg:mb-5
+        rounded-lg md:rounded-xl
         overflow-hidden
         border border-white/20
         group-hover:border-cyan-400/40
         group-hover:shadow-[0_0_15px_rgba(0,255,255,0.2)]
+        md:group-hover:shadow-[0_0_20px_rgba(0,255,255,0.3)]
         transition-all duration-300
       "
       >
@@ -405,12 +434,12 @@ function CountryCard({
       </div>
 
       {/* Country name */}
-      <span className="relative z-10 text-base font-bold text-white mb-1">
+      <span className="relative z-10 text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1 text-center">
         {country.name}
       </span>
 
       {/* Country code */}
-      <span className="relative z-10 text-xs font-medium text-gray-400 group-hover:text-cyan-300 transition-colors">
+      <span className="relative z-10 text-xs md:text-sm font-medium text-gray-400 group-hover:text-cyan-300 transition-colors">
         {country.code}
       </span>
 
@@ -418,9 +447,9 @@ function CountryCard({
       <motion.div
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
-        className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
+        className="absolute -bottom-8 md:-bottom-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap hidden sm:block"
       >
-        <span className="text-xs px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+        <span className="text-xs md:text-sm px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
           {clickHint}
         </span>
       </motion.div>
@@ -429,8 +458,8 @@ function CountryCard({
       <div
         className="
         absolute bottom-0 left-1/2 transform -translate-x-1/2
-        w-0 group-hover:w-12
-        h-0.5
+        w-0 group-hover:w-8 sm:group-hover:w-12 md:group-hover:w-16
+        h-0.5 md:h-1
         bg-linear-to-r from-transparent via-cyan-400 to-transparent
         transition-all duration-300
       "

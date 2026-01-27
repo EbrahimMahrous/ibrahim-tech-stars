@@ -123,7 +123,7 @@ export default function HeroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextStory();
-    }, 30000);
+    }, 120000);
     return () => clearInterval(interval);
   }, [content]);
 

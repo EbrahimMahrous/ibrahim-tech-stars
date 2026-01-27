@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import CTASection from "@/components/UI/CTASection";
 import HeroSection from "@/components/sections/sales-engineer/HeroSection";
 import ObjectionsSection from "@/components/sections/sales-engineer/ObjectionsSection";
 
-// ===== Types =====
 interface SalesEngineerContent {
   ctaSection: {
     title: string;
@@ -60,48 +59,28 @@ export default function SalesEngineerPage() {
     >
       <HeroSection />
       <ObjectionsSection />
-
-      {/* Call to Action Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="py-20 bg-linear-to-b from-gray-900 via-black to-gray-900"
-      >
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-green-400 via-cyan-400 to-blue-400">
-              {content.ctaSection.title}
-            </span>
-          </h2>
-
-          <p className="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
-            {content.ctaSection.description}
-          </p>
-
-          <div className="flex flex-wrap gap-4 justify-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-white font-bold hover:shadow-lg hover:shadow-cyan-500/30 transition-all text-lg"
-            >
-              {content.ctaSection.buttons.schedule}
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full bg-white/10 text-white font-bold hover:bg-white/20 transition-all border border-white/20 text-lg"
-            >
-              {content.ctaSection.buttons.request}
-            </motion.button>
-          </div>
-
-          <p className="text-gray-400 mt-8 text-sm">
-            {content.ctaSection.footer}
-          </p>
-        </div>
-      </motion.div>
+      
+      <CTASection
+        title={content.ctaSection.title}
+        description={content.ctaSection.description}
+        buttons={[
+          {
+            text: content.ctaSection.buttons.schedule,
+            variant: "primary",
+            href: "/consultation",
+          },
+          {
+            text: content.ctaSection.buttons.request,
+            variant: "outline",
+            whatsapp: true,
+          },
+        ]}
+        direction={isArabic ? "rtl" : "ltr"}
+        showBackground={true}
+        showGradientTitle={true}
+        showFooter={true}
+        footerText={content.ctaSection.footer}
+      />
     </section>
   );
 }

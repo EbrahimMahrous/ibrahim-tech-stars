@@ -1,11 +1,14 @@
 export const salesEngineerContent = {
   ctaSection: {
-    title: "🚀 Ready to turn your technical challenges into growth opportunities?",
-    description: "Let's discuss how I can help you analyze your technical needs, design appropriate solutions, and turn them into measurable business value.",
+    title:
+      "🚀 Ready to turn your technical challenges into growth opportunities?",
+    description:
+      "Let's discuss how I can help you analyze your technical needs, design appropriate solutions, and turn them into measurable business value.",
     buttons: {
       schedule: "Schedule a Free Consultation",
-      request: "Request a Detailed Proposal"
+      request: "Contact Me",
     },
-    footer: "⚡ Average response time: 4 hours | 🕒 Free consultation session: 30 minutes"
-  }
+    footer:
+      "⚡ Average response time: 4 hours | 🕒 Free consultation session: 30 minutes",
+  },
 };

@@ -229,8 +229,8 @@ export const webSolutionsContent = {
   ctaTitle: "مستعد لتحويل فكرتك إلى واقع رقمي؟",
   ctaDescription:
     "دعونا نناقش مشروعك ونبني معًا حلًا رقميًا يلبي توقعاتك ويتجاوزها",
-  ctaButton1: "ابدأ مشروعك الآن",
-  ctaButton2: "طلب استشارة مجانية",
+  ctaButton1: "جدولة استشارة مجانية",
+  ctaButton2: "تواصل معي",
 
   viewProject: "مشاهدة المشروع",
   watchDemo: "عرض توضيحي",

@@ -30,7 +30,7 @@ export const headerContent = {
       keywords: ["مساعد شخصي", "مساعدة افتراضية", "تنظيم المهام"],
     },
     extras: {
-      label: "المزيد",
+      label: "إنجازاتي",
       title: "خدمات ومهارات إضافية",
       ariaLabel: "عرض خدمات إضافية",
       items: {

@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
 import { locales } from "@/lib/i18n";
 
 export async function generateStaticParams() {
@@ -20,6 +21,7 @@ export default async function LocaleLayout({
       <Header />
       <main>{children}</main>
       <Footer />
+      <WhatsAppFloat locale={locale} />
     </div>
   );
 }

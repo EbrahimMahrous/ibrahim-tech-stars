@@ -34,41 +34,6 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { TbBuildingStore, TbDeviceAnalytics } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 
-const SendIcon = ({ className = "" }) => (
-  <svg
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m22 2-7 20-4-9-9-4Z" />
-    <path d="M22 2 11 13" />
-  </svg>
-);
-
-const SparkleIcon = ({ className = "" }) => (
-  <svg
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-  </svg>
-);
-
 export default function ServicesSection() {
   const pathname = usePathname();
   const [content, setContent] = useState<any>(null);
@@ -161,7 +126,7 @@ export default function ServicesSection() {
     }
     intervalRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % (content?.services?.length || 1));
-    }, 5000);
+    }, 120000);
   };
 
   const getIconComponent = (iconString: string, className = "") => {
@@ -307,12 +272,12 @@ export default function ServicesSection() {
                 {isArabic
                   ? "خدماتي الاحترافية (8 خدمات متكاملة)"
                   : "My Professional Services (8 Integrated Services)"}
-                <span className="text-sm text-gray-400 font-normal">
+                {/* <span className="text-sm text-gray-400 font-normal">
                   {content.ui.carousel.autoSlideInfo}
-                </span>
+                </span> */}
               </h2>
 
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 <button
                   onClick={() => setAutoPlay(!autoPlay)}
                   className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all ${
@@ -328,7 +293,7 @@ export default function ServicesSection() {
                 <span className="text-sm text-gray-400 hidden sm:block">
                   {content.ui.carousel.dragInstruction}
                 </span>
-              </div>
+              </div> */}
             </div>
             <div className="relative group">
               <div className="flex justify-between items-center mb-6">
@@ -439,7 +404,6 @@ export default function ServicesSection() {
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* الجانب الأيسر - الوصف والميزات */}
                     <div>
                       <div className="mb-8">
                         <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
@@ -482,7 +446,6 @@ export default function ServicesSection() {
                       </div>
                     </div>
 
-                    {/* الجانب الأيمن - الإحصائيات والتوسيع */}
                     <div>
                       <div className="mb-8">
                         <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
@@ -508,7 +471,6 @@ export default function ServicesSection() {
                         </div>
                       </div>
 
-                      {/* تفاصيل إضافية */}
                       {expandedSkill === content.services[currentSlide].id && (
                         <motion.div
                           initial={{ opacity: 0, height: 0 }}
@@ -550,7 +512,6 @@ export default function ServicesSection() {
                         </motion.div>
                       )}
 
-                      {/* أزرار التحكم */}
                       <div className="flex flex-col sm:flex-row gap-4">
                         <button
                           onClick={() =>

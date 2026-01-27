@@ -46,7 +46,7 @@ export const headerContent = {
       keywords: ["personal assistant", "virtual assistant", "task management"],
     },
     extras: {
-      label: "More",
+      label: "Achievements",
       title: "Additional Services & Skills",
       ariaLabel: "View additional services",
       items: {

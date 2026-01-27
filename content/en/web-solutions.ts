@@ -248,8 +248,8 @@ export const webSolutionsContent = {
   ctaTitle: "Ready to transform your idea into a digital reality?",
   ctaDescription:
     "Let's discuss your project and build together a digital solution that meets and exceeds your expectations",
-  ctaButton1: "Start Your Project Now",
-  ctaButton2: "Request Free Consultation",
+  ctaButton1: "Schedule a Free Consultation",
+  ctaButton2: "Contact Me",
 
   viewProject: "View Project",
   watchDemo: "Watch Demo",

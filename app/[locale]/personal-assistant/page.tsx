@@ -3,6 +3,7 @@
 import { JSX, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import CTASection from "@/components/UI/CTASection";
 import {
   FaBolt,
   FaBriefcase,
@@ -26,7 +27,6 @@ import {
   FaHandshake,
 } from "react-icons/fa";
 
-// ============= (Types) =============
 type SkillItem = {
   title: string;
   items: string[];
@@ -303,75 +303,62 @@ export default function PersonalAssistantPage() {
         )}
       </div>
 
-      {/* Call for Work Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-center mt-12 px-4 max-w-4xl mx-auto"
-      >
-        <div className="bg-linear-to-r from-green-900/20 to-blue-900/20 rounded-2xl p-6 md:p-8 border border-green-700/30">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div
-              className={`${isArabic ? "text-right" : "text-left"} md:w-2/3`}
-            >
-              <h3 className="text-xl md:text-2xl font-bold mb-3">
-                <span className="text-green-400">
-                  {isArabic ? "مستعد" : "Ready"}
-                </span>{" "}
-                {isArabic
-                  ? "لتحرير وقتك وزيادة إنتاجيتك؟"
-                  : "to free up your time and increase productivity?"}
-              </h3>
-              <p className="text-gray-300 text-sm md:text-base">
-                {isArabic
-                  ? "دعني أتولى المهام الروتينية والإدارية بينما تركز أنت على "
-                  : "Let me handle routine and administrative tasks while you focus on "}
-                <span className="text-yellow-300">
-                  {isArabic ? "النمو والابتكار" : "growth and innovation"}
-                </span>
-              </p>
-            </div>
-            <div className="flex gap-4">
-              <button className="bg-linear-to-r from-green-500 to-blue-500 text-white px-6 py-2 md:px-8 md:py-3 rounded-full font-bold hover:opacity-90 transition-opacity text-sm md:text-base flex items-center gap-2">
-                <FaHandshake className="text-white" />
-                {isArabic ? "ابدأ الآن مجاناً" : "Start Free Now"}
-              </button>
-              <button className="border border-green-500 text-green-400 px-4 py-2 md:px-6 md:py-3 rounded-full font-bold hover:bg-green-500/10 transition-colors text-sm md:text-base">
-                {isArabic ? "تواصل معي" : "Contact Me"}
-              </button>
-            </div>
-          </div>
-          <div className="mt-6 pt-6 border-t border-gray-700/50">
-            <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-gray-400 text-xs md:text-sm">
-              <div className="flex items-center gap-2">
-                <FaClock className="text-green-400" />
-                <span>
-                  {isArabic
-                    ? "توفير +20 ساعة أسبوعياً"
-                    : "Save +20 hours weekly"}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaDollarSign className="text-green-400" />
-                <span>
-                  {isArabic
-                    ? "تخفيض التكاليف التشغيلية"
-                    : "Reduce operational costs"}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaChartLine className="text-green-400" />
-                <span>
-                  {isArabic
-                    ? "زيادة الإنتاجية بنسبة 40%"
-                    : "Increase productivity by 40%"}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      {/* CTASection */}
+      <CTASection
+        title={
+          isArabic
+            ? "مستعد لتحرير وقتك وزيادة إنتاجيتك؟"
+            : "Ready to free up your time and increase productivity?"
+        }
+        description={
+          isArabic
+            ? "دعني أتولى المهام الروتينية والإدارية بينما تركز أنت على النمو والابتكار"
+            : "Let me handle routine and administrative tasks while you focus on growth and innovation"
+        }
+        // icon={<FaHandshake className="text-green-400" />}
+        buttons={[
+          {
+            text: isArabic
+              ? "جدولة استشارة مجانية"
+              : "Schedule a Free Consultation",
+            variant: "primary",
+            href: "/consultation",
+            icon: <FaHandshake />,
+          },
+          {
+            text: isArabic ? "تواصل معي" : "Contact Me",
+            variant: "outline",
+            whatsapp: true,
+            icon: <FaPhoneAlt />,
+          },
+        ]}
+        features={[
+          {
+            icon: <FaClock className="text-green-400" />,
+            text: isArabic
+              ? "توفير +20 ساعة أسبوعياً"
+              : "Save +20 hours weekly",
+          },
+          {
+            icon: <FaDollarSign className="text-green-400" />,
+            text: isArabic
+              ? "تخفيض التكاليف التشغيلية"
+              : "Reduce operational costs",
+          },
+          {
+            icon: <FaChartLine className="text-green-400" />,
+            text: isArabic
+              ? "زيادة الإنتاجية بنسبة 40%"
+              : "Increase productivity by 40%",
+          },
+        ]}
+        direction={isArabic ? "rtl" : "ltr"}
+        showBackground={false}
+        showGradientTitle={true}
+        showBorder={false}
+        showFooter={false}
+        className="mt-12 max-w-4xl mx-auto"
+      />
     </section>
   );
 }
