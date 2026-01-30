@@ -84,41 +84,56 @@ export default function Footer() {
 
   const servicesLinks = useMemo(() => {
     if (!content) return [];
-  
+
     const links = [];
-    
+
     for (let i = 0; i < content.services.length; i++) {
       const service = content.services[i];
-      
-      if (service.name.includes("مهندس مبيعات") || service.name.includes("حلول مبيعات") || 
-          service.name.includes("مبيعات")) {
+
+      if (
+        service.name.includes("مهندس مبيعات") ||
+        service.name.includes("حلول مبيعات") ||
+        service.name.includes("مبيعات")
+      ) {
         links.push(`/${locale}/sales-engineer`);
-      } 
-      else if (service.name.includes("خدمة عملاء") || service.name.includes("دعم عملاء") || 
-               service.name.includes("عملاء")) {
+      } else if (
+        service.name.includes("خدمة عملاء") ||
+        service.name.includes("دعم عملاء") ||
+        service.name.includes("عملاء")
+      ) {
         links.push(`/${locale}/customer-services`);
-      } 
-      else if (service.name.includes("مساعد شخصي") || service.name.includes("تنظيم وإدارة") || 
-               service.name.includes("مهام")) {
+      } else if (
+        service.name.includes("مساعد شخصي") ||
+        service.name.includes("تنظيم وإدارة") ||
+        service.name.includes("مهام")
+      ) {
         links.push(`/${locale}/personal-assistant`);
-      }
-      else if (service.name.includes("Sales Engineer") || service.name.includes("Sales Solutions") || 
-               service.name.includes("Technical Sales") || service.name.includes("Sales")) {
+      } else if (
+        service.name.includes("Sales Engineer") ||
+        service.name.includes("Sales Solutions") ||
+        service.name.includes("Technical Sales") ||
+        service.name.includes("Sales")
+      ) {
         links.push(`/${locale}/sales-engineer`);
-      }
-      else if (service.name.includes("Customer Service") || service.name.includes("Customer Support") || 
-               service.name.includes("Customer Care") || service.name.includes("Customer")) {
+      } else if (
+        service.name.includes("Customer Service") ||
+        service.name.includes("Customer Support") ||
+        service.name.includes("Customer Care") ||
+        service.name.includes("Customer")
+      ) {
         links.push(`/${locale}/customer-services`);
-      }
-      else if (service.name.includes("Personal Assistant") || service.name.includes("Task Management") || 
-               service.name.includes("Virtual Assistant") || service.name.includes("Assistant")) {
+      } else if (
+        service.name.includes("Personal Assistant") ||
+        service.name.includes("Task Management") ||
+        service.name.includes("Virtual Assistant") ||
+        service.name.includes("Assistant")
+      ) {
         links.push(`/${locale}/personal-assistant`);
-      }
-      else {
+      } else {
         links.push("#");
       }
     }
-    
+
     return links;
   }, [content, locale]);
 
@@ -145,9 +160,160 @@ export default function Footer() {
 
   if (!content) {
     return (
-      <footer className="relative bg-linear-to-b from-gray-900 via-black to-gray-900 overflow-hidden py-8">
-        <div className="container mx-auto px-4 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500 mx-auto"></div>
+      <footer className="relative bg-linear-to-b from-gray-900 via-black to-gray-900 overflow-hidden py-12">
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Main grid skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            {/* Column 1: Logo and info */}
+            <div>
+              <div className="w-32 h-10 bg-gray-800/70 rounded-lg mb-6 animate-pulse" />
+              <div className="space-y-3 mb-6">
+                <div className="h-3 bg-gray-800/60 rounded-full" />
+                <div className="h-3 bg-gray-800/60 rounded-full w-5/6" />
+                <div className="h-3 bg-gray-800/60 rounded-full w-4/6" />
+              </div>
+
+              {/* Stats skeleton */}
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {[...Array(3)].map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="text-center p-3 bg-gray-800/40 rounded-lg"
+                  >
+                    <div className="h-6 w-8 bg-gray-700/60 rounded mx-auto mb-2" />
+                    <div className="h-2 w-16 bg-gray-700/60 rounded-full mx-auto" />
+                  </div>
+                ))}
+              </div>
+
+              {/* Social links skeleton */}
+              <div className="flex flex-wrap gap-2">
+                {[...Array(6)].map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="w-10 h-10 bg-gray-800/50 rounded-lg animate-pulse"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2: Web solutions and technologies */}
+            <div>
+              <div className="mb-8">
+                <div className="h-6 w-48 bg-gray-800/70 rounded-lg mb-4" />
+                <div className="space-y-3">
+                  {[...Array(4)].map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="h-4 w-40 bg-gray-800/60 rounded-full"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="h-6 w-48 bg-gray-800/70 rounded-lg mb-4" />
+                <div className="flex flex-wrap gap-2">
+                  {[...Array(8)].map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="h-8 w-20 bg-gray-800/50 rounded-lg"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3: Services and skills */}
+            <div>
+              <div className="mb-8">
+                <div className="h-6 w-48 bg-gray-800/70 rounded-lg mb-4" />
+                <div className="space-y-4">
+                  {[...Array(3)].map((_, idx) => (
+                    <div key={idx} className="pb-4 border-b border-gray-700/30">
+                      <div className="h-4 w-40 bg-gray-800/60 rounded-full mb-2" />
+                      <div className="h-3 w-32 bg-gray-800/50 rounded-full" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="h-6 w-48 bg-gray-800/70 rounded-lg mb-4" />
+                <div className="space-y-3">
+                  {[...Array(4)].map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="h-4 w-32 bg-gray-800/60 rounded-full" />
+                      <div className="h-5 w-10 bg-gray-800/50 rounded-full" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Column 4: Achievements and newsletter */}
+            <div>
+              <div className="mb-8">
+                <div className="h-6 w-48 bg-gray-800/70 rounded-lg mb-4" />
+                <div className="grid grid-cols-2 gap-3">
+                  {[...Array(4)].map((_, idx) => (
+                    <div key={idx} className="p-3 bg-gray-800/40 rounded-lg">
+                      <div className="h-4 w-20 bg-gray-700/60 rounded-full mx-auto mb-2" />
+                      <div className="h-3 w-16 bg-gray-700/50 rounded-full mx-auto" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="h-6 w-48 bg-gray-800/70 rounded-lg mb-4" />
+                <div className="space-y-3">
+                  <div className="h-12 bg-gray-800/50 rounded-lg" />
+                  <div className="h-12 bg-gray-800/60 rounded-lg" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact section skeleton */}
+          <div className="mb-8 p-6 rounded-2xl bg-gray-900/30 border border-gray-700/50 animate-pulse">
+            <div className="h-7 w-64 bg-gray-800/70 rounded-lg mx-auto mb-6" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[...Array(3)].map((_, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center gap-4 p-4 rounded-xl bg-gray-800/40"
+                >
+                  <div className="w-10 h-10 bg-gray-700/60 rounded-full" />
+                  <div className="space-y-2">
+                    <div className="h-4 w-40 bg-gray-700/60 rounded-full" />
+                    <div className="h-3 w-32 bg-gray-700/50 rounded-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Legal links skeleton */}
+          <div className="border-t border-gray-700/30 pt-8 mb-6">
+            <div className="flex flex-wrap justify-center gap-6">
+              {[...Array(5)].map((_, idx) => (
+                <div
+                  key={idx}
+                  className="h-3 w-16 bg-gray-800/60 rounded-full"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Copyright skeleton */}
+          <div className="text-center pt-6 border-t border-gray-700/30">
+            <div className="h-3 w-64 bg-gray-800/60 rounded-full mx-auto mb-3" />
+            <div className="h-3 w-48 bg-gray-800/50 rounded-full mx-auto" />
+          </div>
         </div>
       </footer>
     );
@@ -489,24 +655,27 @@ function PrivacyModal({
   content: any;
   onClose: () => void;
 }) {
+  const isRTL = content.locale === "ar";
+
   return (
     <div
+      dir={isRTL ? "rtl" : "ltr"}
       className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
-      dir={content.locale === "ar" ? "rtl" : "ltr"}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-linear-to-br from-gray-900 to-black border border-cyan-400/30 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto cursor-default"
       >
-        <div className="p-8">
-          <div className="flex justify-between items-center mb-8">
+        <div className="p-8 text-start">
+          <div className="flex items-center justify-between mb-8">
             <h3 className="text-3xl font-bold text-white">
               {content.privacyTitle}
             </h3>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-white text-2xl p-2 cursor-pointer"
+              aria-label="Close"
             >
               ×
             </button>
@@ -519,15 +688,16 @@ function PrivacyModal({
                   <h4 className="text-xl font-bold text-white mb-3">
                     {section.title}
                   </h4>
-                  {section.content ? (
-                    <p>{section.content}</p>
-                  ) : section.items ? (
-                    <ul className="list-disc pr-6 space-y-2">
+
+                  {section.content && <p>{section.content}</p>}
+
+                  {section.items && (
+                    <ul className="list-disc ps-6 space-y-2">
                       {section.items.map((item: string, idx: number) => (
                         <li key={idx}>{item}</li>
                       ))}
                     </ul>
-                  ) : null}
+                  )}
                 </div>
               ),
             )}
@@ -535,9 +705,7 @@ function PrivacyModal({
             <div className="pt-6 border-t border-white/10">
               <p className="text-sm text-gray-400">
                 آخر تحديث:{" "}
-                {new Date().toLocaleDateString(
-                  content.locale === "ar" ? "ar-EG" : "en-US",
-                )}
+                {new Date().toLocaleDateString(isRTL ? "ar-EG" : "en-US")}
               </p>
             </div>
           </div>
@@ -546,7 +714,6 @@ function PrivacyModal({
     </div>
   );
 }
-
 function TermsModal({
   content,
   onClose,
@@ -554,18 +721,20 @@ function TermsModal({
   content: any;
   onClose: () => void;
 }) {
+  const isRTL = content.locale === "ar";
+
   return (
     <div
+      dir={isRTL ? "rtl" : "ltr"}
       className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
-      dir={content.locale === "ar" ? "rtl" : "ltr"}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-linear-to-br from-gray-900 to-black border border-green-400/30 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto cursor-default"
       >
-        <div className="p-8">
-          <div className="flex justify-between items-center mb-8">
+        <div className="p-8 text-start">
+          <div className="flex items-center justify-between mb-8">
             <h3 className="text-3xl font-bold text-white">
               {content.termsTitle}
             </h3>
@@ -584,15 +753,16 @@ function TermsModal({
                   <h4 className="text-xl font-bold text-white mb-3">
                     {section.title}
                   </h4>
-                  {section.content ? (
-                    <p>{section.content}</p>
-                  ) : section.items ? (
-                    <ul className="list-disc pr-6 space-y-2">
+
+                  {section.content && <p>{section.content}</p>}
+
+                  {section.items && (
+                    <ul className="list-disc ps-6 space-y-2">
                       {section.items.map((item: string, idx: number) => (
                         <li key={idx}>{item}</li>
                       ))}
                     </ul>
-                  ) : null}
+                  )}
                 </div>
               ),
             )}
@@ -600,9 +770,7 @@ function TermsModal({
             <div className="pt-6 border-t border-white/10">
               <p className="text-sm text-gray-400">
                 السارية من:{" "}
-                {new Date().toLocaleDateString(
-                  content.locale === "ar" ? "ar-EG" : "en-US",
-                )}
+                {new Date().toLocaleDateString(isRTL ? "ar-EG" : "en-US")}
               </p>
             </div>
           </div>
@@ -611,7 +779,6 @@ function TermsModal({
     </div>
   );
 }
-
 function CookiesModal({
   content,
   onClose,
@@ -619,18 +786,20 @@ function CookiesModal({
   content: any;
   onClose: () => void;
 }) {
+  const isRTL = content.locale === "ar";
+
   return (
     <div
+      dir={isRTL ? "rtl" : "ltr"}
       className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
-      dir={content.locale === "ar" ? "rtl" : "ltr"}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-linear-to-br from-gray-900 to-black border border-purple-400/30 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto cursor-default"
       >
-        <div className="p-8">
-          <div className="flex justify-between items-center mb-8">
+        <div className="p-8 text-start">
+          <div className="flex items-center justify-between mb-8">
             <h3 className="text-3xl font-bold text-white">
               {content.cookiesTitle}
             </h3>
@@ -651,6 +820,7 @@ function CookiesModal({
                       <h4 className="text-xl font-bold text-white mb-3">
                         {section.title}
                       </h4>
+
                       <div className="space-y-4">
                         {section.types.map((type: any, idx: number) => (
                           <div key={idx} className="p-4 rounded-lg bg-white/5">
@@ -665,18 +835,21 @@ function CookiesModal({
                       </div>
                     </div>
                   );
-                } else if (key === "cookieManagement") {
+                }
+
+                if (key === "cookieManagement") {
                   return (
                     <div key={key}>
                       <h4 className="text-xl font-bold text-white mb-3">
                         {section.title}
                       </h4>
                       <p>{section.content}</p>
+
                       <div className="mt-4 p-4 rounded-lg bg-white/5">
                         <h5 className="font-bold text-white mb-2">
                           كيفية إدارة الكوكيز في المتصفحات الشائعة:
                         </h5>
-                        <ul className="list-disc pr-6 space-y-1 text-sm text-gray-400">
+                        <ul className="list-disc ps-6 space-y-1 text-sm text-gray-400">
                           {section.browsers.map(
                             (browser: string, idx: number) => (
                               <li key={idx}>{browser}</li>
@@ -686,11 +859,15 @@ function CookiesModal({
                       </div>
                     </div>
                   );
-                } else if (key === "cookieButtons") {
+                }
+
+                if (key === "cookieButtons") {
                   return (
                     <div
                       key={key}
-                      className="flex gap-4 pt-6 border-t border-white/10"
+                      className={`flex gap-4 pt-6 border-t border-white/10 ${
+                        isRTL ? "flex-row-reverse" : "flex-row"
+                      }`}
                     >
                       <button
                         onClick={onClose}
@@ -698,12 +875,14 @@ function CookiesModal({
                       >
                         {section.acceptAll}
                       </button>
+
                       <button
                         onClick={onClose}
                         className="flex-1 py-3 rounded-lg border border-white/20 hover:bg-white/10 cursor-pointer"
                       >
                         {section.managePreferences}
                       </button>
+
                       <button
                         onClick={onClose}
                         className="flex-1 py-3 rounded-lg border border-white/20 hover:bg-white/10 cursor-pointer"
@@ -712,16 +891,16 @@ function CookiesModal({
                       </button>
                     </div>
                   );
-                } else {
-                  return (
-                    <div key={key}>
-                      <h4 className="text-xl font-bold text-white mb-3">
-                        {section.title}
-                      </h4>
-                      <p>{section.content}</p>
-                    </div>
-                  );
                 }
+
+                return (
+                  <div key={key}>
+                    <h4 className="text-xl font-bold text-white mb-3">
+                      {section.title}
+                    </h4>
+                    <p>{section.content}</p>
+                  </div>
+                );
               },
             )}
           </div>

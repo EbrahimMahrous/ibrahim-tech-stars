@@ -37,7 +37,7 @@ export const webSolutionsContent = {
       title: "Kleitech Early Kidney Failure Detection Platform",
       category: "Medical Platform",
       duration: "3:15",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "iQoH2iFu3GA",
       description:
         "Specialized medical platform for early detection of kidney failure using artificial intelligence",
       technologies: ["Next.js", "TypeScript", "TensorFlow.js", "MongoDB"],
@@ -60,7 +60,7 @@ export const webSolutionsContent = {
       title: "OTM Transportation Platform Dashboard",
       category: "Transportation",
       duration: "2:30",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "KVOkDhi2uj4",
       description:
         "Integrated shipment management and transportation platform with live shipment tracking",
       technologies: ["React", "Node.js", "Socket.io", "Google Maps API"],
@@ -83,7 +83,7 @@ export const webSolutionsContent = {
       title: "Learning Management System (LMS)",
       category: "Education",
       duration: "3:45",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "KP3CNoaiyBg",
       description:
         "Integrated e-learning platform with virtual classrooms and smart assessments",
       technologies: ["Next.js", "MongoDB", "WebRTC", "Stripe"],
@@ -105,7 +105,7 @@ export const webSolutionsContent = {
       title: "Pearline E-Commerce Store",
       category: "E-Commerce",
       duration: "2:15",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "jNzhuBaNC5o",
       description:
         "Integrated e-commerce store for cosmetic and personal care products",
       technologies: ["WordPress", "WooCommerce", "Elementor", "Arabic Support"],
@@ -127,7 +127,7 @@ export const webSolutionsContent = {
       title: "WordPress Porto Store",
       category: "E-Commerce",
       duration: "2:00",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "yxFSkjhjx98",
       description:
         "Design and development of an e-commerce store using WordPress with unique designs",
       technologies: ["WordPress", "Porto Theme", "WooCommerce", "Custom CSS"],

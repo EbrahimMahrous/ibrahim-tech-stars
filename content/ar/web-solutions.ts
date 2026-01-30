@@ -33,7 +33,7 @@ export const webSolutionsContent = {
       title: "موقع Kleitech للكشف المبكر عن الفشل الكلوي",
       category: "منصة طبية",
       duration: "3:15",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "iQoH2iFu3GA",
       description:
         "منصة طبية متخصصة في الكشف المبكر عن الفشل الكلوي عبر الذكاء الاصطناعي",
       technologies: ["Next.js", "TypeScript", "TensorFlow.js", "MongoDB"],
@@ -53,7 +53,7 @@ export const webSolutionsContent = {
       title: "لوحة تحكم منصة النقل OTM",
       category: "النقل",
       duration: "2:30",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "KVOkDhi2uj4",
       description: "نظام إدارة شحنات ومنصة نقل متكاملة مع تتبع حي للشحنات",
       technologies: ["React", "Node.js", "Socket.io", "Google Maps API"],
       features: [
@@ -72,7 +72,7 @@ export const webSolutionsContent = {
       title: "نظام إدارة التعلم (LMS)",
       category: "التعليم",
       duration: "3:45",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "KP3CNoaiyBg",
       description: "منصة تعلم إلكتروني متكاملة مع فصول افتراضية وتقييمات ذكية",
       technologies: ["Next.js", "MongoDB", "WebRTC", "Stripe"],
       features: [
@@ -91,7 +91,7 @@ export const webSolutionsContent = {
       title: "متجر Pearline الإلكتروني",
       category: "التجارة الإلكترونية",
       duration: "2:15",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "jNzhuBaNC5o",
       description: "متجر إلكتروني متكامل لمنتجات التجميل والعناية الشخصية",
       technologies: ["WordPress", "WooCommerce", "Elementor", "Arabic Support"],
       features: [
@@ -110,7 +110,7 @@ export const webSolutionsContent = {
       title: "متجر WordPress Porto",
       category: "التجارة الإلكترونية",
       duration: "2:00",
-      youtubeId: "CCav701xyCY",
+      youtubeId: "yxFSkjhjx98",
       description:
         "تصميم وتطوير متجر إلكتروني باستخدام WordPress مع تصاميم فريدة",
       technologies: ["WordPress", "Porto Theme", "WooCommerce", "Custom CSS"],

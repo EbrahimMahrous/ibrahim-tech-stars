@@ -93,7 +93,7 @@ function GreetingMessage({
         <div className="w-14 h-10 md:w-16 md:h-12 rounded-lg overflow-hidden border border-cyan-400/50 shadow-[0_0_20px_rgba(0,255,255,0.3)] shrink-0">
           <country.Flag className="w-full h-full object-cover" />
         </div>
-        
+
         {/* Country Info */}
         <div className="text-center sm:text-left flex-1 w-full">
           {/* Country Name & Code */}
@@ -105,7 +105,7 @@ function GreetingMessage({
               {country.code}
             </span>
           </div>
-          
+
           {/* Greeting Text */}
           <p className="text-gray-200 text-base md:text-lg min-h-6 w-full">
             <span className="inline-block max-w-full wrap-break-word text-center sm:text-left">
@@ -114,7 +114,7 @@ function GreetingMessage({
           </p>
         </div>
       </div>
-      
+
       {/* Timer Message */}
       <motion.p
         initial={{ opacity: 0 }}
@@ -215,10 +215,53 @@ export default function ArabCountriesCarousel() {
   if (!content) {
     return (
       <section className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 bg-linear-to-b from-gray-900 via-black to-gray-900">
-        <div className="relative z-10 text-center mb-12 px-6">
-          <div className="flex items-center justify-center gap-2 mb-6 text-green-400">
-            <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm md:text-base">جاري تحميل المحتوى...</span>
+        <div className="relative z-10 container mx-auto px-6">
+          {/* Title skeleton */}
+          <div className="text-center mb-12">
+            <div className="h-10 md:h-12 lg:h-14 bg-gray-800/70 rounded-lg max-w-3xl mx-auto mb-6 animate-pulse" />
+            <div className="h-4 bg-gray-800/60 rounded-full max-w-2xl mx-auto mb-4 animate-pulse" />
+            <div className="h-4 bg-gray-800/60 rounded-full max-w-xl mx-auto animate-pulse" />
+          </div>
+          {/* User selection box skeleton */}
+          <div className="flex items-center justify-center mb-10">
+            <div className="inline-flex items-center justify-center gap-3 bg-gray-800/40 border border-gray-700/50 rounded-2xl px-6 py-4 w-full max-w-md animate-pulse">
+              <div className="w-8 h-8 bg-gray-700/60 rounded-full" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-gray-700/60 rounded-full w-3/4 mx-auto" />
+                <div className="h-3 bg-gray-700/60 rounded-full w-1/2 mx-auto" />
+              </div>
+              <div className="w-8 h-8 bg-gray-700/60 rounded-full" />
+            </div>
+          </div>
+          {/* Country cards row 1 skeleton - Full width */}
+          <div className="relative overflow-hidden mb-8 w-[calc(100%+3rem)] sm:w-[calc(100%+4rem)] md:w-[calc(100%+6rem)] -ml-6 sm:-ml-8 md:-ml-12">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 px-6 sm:px-8 md:px-12">
+              {Array.from({ length: 16 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="min-w-35 sm:min-w-40 md:min-w-45 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gray-800/30 border border-gray-700/40 flex flex-col items-center justify-center animate-pulse shrink-0"
+                >
+                  <div className="w-12 h-9 sm:w-14 sm:h-10 md:w-16 md:h-12 bg-gray-700/50 rounded-lg mb-2 sm:mb-3" />
+                  <div className="h-3 sm:h-4 bg-gray-700/50 rounded-full w-16 sm:w-20 mb-1 sm:mb-2" />
+                  <div className="h-2 sm:h-3 bg-gray-700/50 rounded-full w-10 sm:w-12" />
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Country cards row 2 skeleton - Full width */}
+          <div className="relative overflow-hidden w-[calc(100%+3rem)] sm:w-[calc(100%+4rem)] md:w-[calc(100%+6rem)] -ml-6 sm:-ml-8 md:-ml-12">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 px-6 sm:px-8 md:px-12">
+              {Array.from({ length: 16 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="min-w-35 sm:min-w-40 md:min-w-45 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gray-800/30 border border-gray-700/40 flex flex-col items-center justify-center animate-pulse shrink-0"
+                >
+                  <div className="w-12 h-9 sm:w-14 sm:h-10 md:w-16 md:h-12 bg-gray-700/50 rounded-lg mb-2 sm:mb-3" />
+                  <div className="h-3 sm:h-4 bg-gray-700/50 rounded-full w-16 sm:w-20 mb-1 sm:mb-2" />
+                  <div className="h-2 sm:h-3 bg-gray-700/50 rounded-full w-10 sm:w-12" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

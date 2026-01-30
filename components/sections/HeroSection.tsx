@@ -43,12 +43,66 @@ export default function HeroSection() {
       <section className="min-h-screen relative py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900">
         <div className="relative z-10 container mx-auto px-6 min-h-screen flex flex-col justify-center">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-6 text-green-400">
-              <span className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-sm md:text-base">
-                {isArabic ? "جاري التحميل..." : "Loading..."}
-              </span>
+            {/* Loading indicator with line next to circle */}
+            <div className="flex items-center justify-center mb-6">
+              <div className="flex items-center gap-2">
+                {/* Animated circle */}
+                <div className="relative flex items-center">
+                  <span className="absolute w-2 h-2 bg-gray-800/60 rounded-full animate-ping" />
+                  <span className="w-2 h-2 bg-gray-800/60 rounded-full relative" />
+                </div>
+                {/* Line next to circle */}
+                <div className="h-2 w-16 bg-linear-to-r bg-gray-800/60 rounded-full ml-1" />
+              </div>
             </div>
+
+            {/* Title skeleton */}
+            <div className="mb-10">
+              <div className="h-9 md:h-11 lg:h-14 bg-gray-800/80 rounded-md max-w-2xl mx-auto mb-4 animate-pulse" />
+              <div className="h-6 md:h-8 bg-gray-800/60 rounded-md max-w-xl mx-auto animate-pulse" />
+            </div>
+
+            {/* Description text skeleton */}
+            <div className="max-w-xl mx-auto mb-12 space-y-2.5">
+              <div className="h-3 bg-gray-800/70 rounded-full animate-pulse" />
+              <div className="h-3 bg-gray-800/70 rounded-full w-10/12 mx-auto animate-pulse" />
+              <div className="h-3 bg-gray-800/70 rounded-full w-9/12 mx-auto animate-pulse" />
+              <div className="h-3 bg-gray-800/70 rounded-full w-8/12 mx-auto animate-pulse" />
+            </div>
+
+            {/* Button skeletons */}
+            <div className="flex gap-3 justify-center">
+              <div className="w-36 h-10 bg-linear-to-r from-gray-700/70 to-gray-600/70 rounded-full animate-pulse" />
+              <div className="w-36 h-10 bg-gray-800/50 rounded-full border border-gray-700/50 animate-pulse" />
+            </div>
+          </div>
+
+          {/* Scroll indicator skeleton */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="flex flex-col items-center">
+              {/* Animated arrow */}
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="w-5 h-8 border border-gray-700 rounded-full flex justify-center relative"
+              >
+                {/* Vertical line */}
+                <div className="absolute top-2 w-px h-3 bg-linear-to-b from-gray-600 to-gray-800" />
+                {/* Right diagonal line */}
+                <div className="absolute bottom-2 right-1 w-px h-2 bg-gray-600 transform rotate-45" />
+                {/* Left diagonal line */}
+                <div className="absolute bottom-2 left-1 w-px h-2 bg-gray-600 transform -rotate-45" />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Background effects */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gray-800/5 rounded-full blur-xl" />
+            <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gray-800/5 rounded-full blur-xl" />
+            {/* Dynamic background lines */}
+            <div className="absolute top-1/3 left-1/3 w-1 h-20 bg-linear-to-b from-transparent via-gray-800/20 to-transparent" />
+            <div className="absolute bottom-1/3 right-1/3 w-1 h-16 bg-linear-to-b from-transparent via-gray-800/20 to-transparent" />
           </div>
         </div>
       </section>

@@ -182,12 +182,233 @@ export default function ServicesSection() {
         dir={isArabic ? "rtl" : "ltr"}
       >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-6 text-cyan-400">
-              <span className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" />
-              <span className="text-sm md:text-base">
-                {isArabic ? "جاري التحميل..." : "Loading..."}
-              </span>
+          {/* Header skeleton */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-gray-800/40 border border-gray-700/50 mb-6 animate-pulse">
+              <div className="w-5 h-5 bg-gray-700/60 rounded-full" />
+              <div className="h-3 w-32 bg-gray-700/60 rounded-full" />
+            </div>
+
+            <div className="mb-6">
+              <div className="h-10 sm:h-12 md:h-14 bg-gray-800/70 rounded-lg max-w-3xl mx-auto mb-4 animate-pulse" />
+              <div className="h-4 bg-gray-800/60 rounded-full max-w-2xl mx-auto animate-pulse" />
+            </div>
+
+            <div className="space-y-2 max-w-3xl mx-auto">
+              <div className="h-3 bg-gray-800/60 rounded-full animate-pulse" />
+              <div className="h-3 bg-gray-800/60 rounded-full w-5/6 mx-auto animate-pulse" />
+              <div className="h-3 bg-gray-800/60 rounded-full w-2/3 mx-auto animate-pulse" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left column - Services carousel skeleton */}
+            <div className="lg:col-span-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                <div className="h-7 sm:h-8 bg-gray-800/70 rounded-lg w-64 animate-pulse" />
+                {/* <div className="flex items-center gap-4">
+                  <div className="h-10 w-32 bg-gray-800/40 border border-gray-700/50 rounded-lg animate-pulse" />
+                  <div className="h-3 w-24 bg-gray-800/60 rounded-full animate-pulse" />
+                </div> */}
+              </div>
+
+              {/* Carousel controls */}
+              <div className="flex justify-between items-center mb-6">
+                <div className="w-12 h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl animate-pulse" />
+                <div className="flex flex-col items-center gap-2">
+                  <div className="h-3 w-32 bg-gray-800/60 rounded-full animate-pulse" />
+                  <div className="flex items-center gap-2">
+                    <div className="h-6 w-8 bg-gray-800/60 rounded animate-pulse" />
+                    <div className="h-3 w-4 bg-gray-800/60 rounded-full animate-pulse" />
+                    <div className="h-6 w-8 bg-gray-800/60 rounded animate-pulse" />
+                  </div>
+                  <div className="h-3 w-48 bg-gray-800/60 rounded-full animate-pulse" />
+                </div>
+                <div className="w-12 h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl animate-pulse" />
+              </div>
+
+              {/* Service card */}
+              <div className="relative backdrop-blur-xl bg-gray-900/30 rounded-3xl border border-gray-700/50 overflow-hidden animate-pulse">
+                <div className="h-1 bg-linear-to-r from-gray-700 via-gray-600 to-gray-700" />
+
+                <div className="p-6 sm:p-8">
+                  {/* Service header */}
+                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 gap-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 bg-gray-800/40 border border-gray-700/50 rounded-2xl" />
+                      <div className="space-y-2">
+                        <div className="h-6 w-48 bg-gray-800/60 rounded-lg" />
+                        <div className="h-4 w-32 bg-gray-800/50 rounded-full" />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="h-8 w-12 bg-gray-800/60 rounded-lg mb-1" />
+                        <div className="h-3 w-16 bg-gray-800/50 rounded-full" />
+                      </div>
+                      <div className="flex gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="w-5 h-5 bg-gray-800/50 rounded-full"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Service content */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Left side */}
+                    <div className="space-y-8">
+                      <div className="space-y-4">
+                        <div className="h-5 w-32 bg-gray-800/60 rounded-lg" />
+                        <div className="space-y-2">
+                          <div className="h-3 bg-gray-800/50 rounded-full" />
+                          <div className="h-3 bg-gray-800/50 rounded-full w-5/6" />
+                          <div className="h-3 bg-gray-800/50 rounded-full w-4/6" />
+                        </div>
+                        <div className="h-3 w-40 bg-gray-800/50 rounded-full" />
+                      </div>
+
+                      <div className="bg-gray-800/20 rounded-2xl p-6 border border-gray-700/50">
+                        <div className="h-5 w-32 bg-gray-800/60 rounded-lg mb-4" />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {[...Array(4)].map((_, i) => (
+                            <div
+                              key={i}
+                              className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/30"
+                            >
+                              <div className="w-5 h-5 bg-gray-700/60 rounded-full" />
+                              <div className="h-3 w-24 bg-gray-700/60 rounded-full" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right side */}
+                    <div className="space-y-8">
+                      <div className="space-y-4">
+                        <div className="h-5 w-32 bg-gray-800/60 rounded-lg" />
+                        <div className="grid grid-cols-2 gap-3">
+                          {[...Array(4)].map((_, i) => (
+                            <div
+                              key={i}
+                              className="bg-gray-800/30 rounded-2xl p-4 border border-gray-700/50"
+                            >
+                              <div className="h-6 w-12 bg-gray-700/60 rounded-lg mb-1 mx-auto" />
+                              <div className="h-3 w-20 bg-gray-700/50 rounded-full mx-auto" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Technical details */}
+                      {/* <div className="bg-gray-800/10 rounded-2xl p-6 border border-gray-700/30">
+                        <div className="h-5 w-48 bg-gray-800/60 rounded-lg mb-3" />
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <div
+                              key={i}
+                              className="h-6 w-16 bg-gray-800/40 rounded-full"
+                            />
+                          ))}
+                        </div>
+                        <div className="space-y-2">
+                          <div className="h-3 w-56 bg-gray-800/50 rounded-full" />
+                          <div className="h-3 w-48 bg-gray-800/50 rounded-full" />
+                        </div>
+                      </div> */}
+
+                      {/* Buttons */}
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="h-12 flex-1 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                        <div className="h-12 flex-1 bg-gray-700/50 rounded-xl" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-1 bg-gray-800">
+                  <div className="h-full bg-gray-700 w-1/3" />
+                </div>
+              </div>
+
+              {/* Carousel dots */}
+              <div className="flex justify-center gap-3 mt-8">
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-3 h-3 bg-gray-700/60 rounded-full"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Right column - Project builder skeleton */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-24">
+                <div className="p-6 sm:p-8 backdrop-blur-xl bg-gray-900/30 rounded-3xl border border-gray-700/50 shadow-2xl">
+                  {/* Title */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-8 h-8 bg-gray-800/60 rounded-full" />
+                    <div className="h-6 w-48 bg-gray-800/70 rounded-lg" />
+                  </div>
+
+                  {/* Description */}
+                  <div className="space-y-2 mb-8">
+                    <div className="h-3 bg-gray-800/60 rounded-full" />
+                    <div className="h-3 bg-gray-800/60 rounded-full w-5/6" />
+                    <div className="h-3 bg-gray-800/60 rounded-full w-4/6" />
+                  </div>
+
+                  {/* Drop area */}
+                  <div className="min-h-64 p-6 border-2 border-dashed border-gray-700/40 rounded-2xl mb-8 bg-gray-900/20">
+                    <div className="h-full flex flex-col items-center justify-center text-center p-8">
+                      <div className="w-16 h-16 bg-gray-800/40 rounded-full mb-4 animate-pulse" />
+                      <div className="h-4 w-48 bg-gray-800/60 rounded-full mb-3" />
+                      <div className="h-3 w-64 bg-gray-800/50 rounded-full" />
+                    </div>
+                  </div>
+
+                  {/* Selected services */}
+                  <div className="space-y-4 mb-8">
+                    {[...Array(3)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between p-4 bg-gray-800/30 rounded-xl border border-gray-700/50"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 bg-gray-700/60 rounded-lg" />
+                          <div className="space-y-2">
+                            <div className="h-4 w-32 bg-gray-700/60 rounded-full" />
+                            <div className="h-3 w-24 bg-gray-700/50 rounded-full" />
+                          </div>
+                        </div>
+                        <div className="w-6 h-6 bg-gray-700/60 rounded-full" />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 text-center">
+                      <div className="h-8 w-12 bg-gray-700/60 rounded-lg mb-1 mx-auto" />
+                      <div className="h-3 w-24 bg-gray-700/50 rounded-full mx-auto" />
+                    </div>
+                    <div className="p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 text-center">
+                      <div className="h-8 w-12 bg-gray-700/60 rounded-lg mb-1 mx-auto" />
+                      <div className="h-3 w-24 bg-gray-700/50 rounded-full mx-auto" />
+                    </div>
+                  </div>
+
+                  {/* Note */}
+                  <div className="p-5 bg-gray-800/20 rounded-2xl border border-gray-700/40">
+                    <div className="h-3 w-full bg-gray-700/60 rounded-full" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

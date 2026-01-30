@@ -74,7 +74,6 @@ export default function Header() {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown);
   };
 
-  // Build navItems from content
   const navItems = useMemo(() => {
     if (!content) return [];
 
@@ -154,10 +153,51 @@ export default function Header() {
 
   if (!content) {
     return (
-      <header className="fixed top-0 left-0 w-full z-50 bg-gray-900/95 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          <div className="w-32 h-10 bg-gray-700 animate-pulse rounded"></div>
-          <div className="w-8 h-8 bg-gray-700 animate-pulse rounded-full"></div>
+      <header className="fixed top-0 left-0 w-full z-50 bg-gray-900/95 backdrop-blur-xl border-b border-gray-800">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between">
+          {/* Logo skeleton */}
+          <div className="group relative flex items-center">
+            <div className="w-32 h-10 bg-gray-800/70 rounded-lg animate-pulse" />
+          </div>
+
+          {/* Desktop Navigation skeleton - Centered */}
+          <nav className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 gap-4 lg:gap-6">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="relative group">
+                <div className="w-20 h-4 bg-gray-800/60 rounded-full animate-pulse" />
+                <div className="absolute bottom-0 left-0 w-0 h-px bg-gray-700" />
+              </div>
+            ))}
+          </nav>
+
+          {/* Right Side Controls skeleton */}
+          <div className="hidden md:flex items-center gap-4">
+            {/* Dark Mode Toggle */}
+            <div className="w-9 h-9 bg-gray-800/60 rounded-full animate-pulse" />
+
+            {/* Language Switch */}
+            <div className="w-20 h-10 bg-gray-800/60 rounded-full animate-pulse" />
+
+            {/* CTA Button */}
+            <div className="w-32 h-10 bg-gray-800/70 rounded-full animate-pulse" />
+          </div>
+
+          {/* Mobile Burger & Controls skeleton */}
+          <div className="md:hidden flex items-center gap-3">
+            {/* Dark Mode Toggle */}
+            <div className="w-9 h-9 bg-gray-800/60 rounded-full animate-pulse" />
+
+            {/* Language Switch */}
+            <div className="w-9 h-9 bg-gray-800/60 rounded-full animate-pulse" />
+
+            {/* Mobile Menu Button */}
+            <div className="w-10 h-10 bg-gray-800/70 rounded-lg animate-pulse" />
+          </div>
+        </div>
+
+        {/* Progress Bar skeleton */}
+        <div className="overflow-hidden bg-gray-800">
+          <div className="h-px bg-gray-700 w-1/3" />
         </div>
       </header>
     );

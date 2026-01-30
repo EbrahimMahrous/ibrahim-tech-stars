@@ -10,7 +10,7 @@ export default function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={containerRef} >
+    <div ref={containerRef}>
       <main>
         <HeroSection />
         <ArabCountriesSection />

@@ -43,9 +43,27 @@ export default function WebSolutionsPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const skillsContainerRef = useRef<HTMLDivElement>(null);
+  const [slidesToShow, setSlidesToShow] = useState(3); // عدد الفيديوهات المعروضة
 
   const locale = pathname.split("/")[1] || "ar";
   const isArabic = locale === "ar";
+
+  // تحديد عدد الشرائح المعروضة حسب حجم الشاشة
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) {
+        setSlidesToShow(3); // شاشات كبيرة
+      } else if (window.innerWidth >= 768) {
+        setSlidesToShow(2); // شاشات متوسطة
+      } else {
+        setSlidesToShow(1); // شاشات صغيرة
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const iconMap: { [key: string]: JSX.Element } = {
     FaReact: <FaReact className="text-blue-500" />,
@@ -158,15 +176,17 @@ export default function WebSolutionsPage() {
 
   const nextSlide = () => {
     if (!content?.projects) return;
+    const maxSlide = Math.max(0, content.projects.length - slidesToShow);
     setCurrentSlide((prev) =>
-      prev === content.projects.length - 1 ? 0 : prev + 1,
+      prev >= maxSlide ? 0 : prev + 1,
     );
   };
 
   const prevSlide = () => {
     if (!content?.projects) return;
+    const maxSlide = Math.max(0, content.projects.length - slidesToShow);
     setCurrentSlide((prev) =>
-      prev === 0 ? content.projects.length - 1 : prev - 1,
+      prev === 0 ? maxSlide : prev - 1,
     );
   };
 
@@ -219,7 +239,7 @@ export default function WebSolutionsPage() {
           </p>
         </motion.div>
 
-        {/* Skills Infinite Scroll - إجبار الاتجاه LTR فقط هنا */}
+        {/* Skills Infinite Scroll */}
         <div className="mb-16 relative overflow-hidden" dir="ltr">
           <div className="absolute bg-linear-to-r from-gray-900 via-transparent to-gray-900 z-10 pointer-events-none" />
           <div
@@ -252,29 +272,51 @@ export default function WebSolutionsPage() {
 
         {/* Projects Carousel Section */}
         <div className="mb-20">
+          {/* <h2 className="text-3xl font-bold mb-10 text-center bg-linear-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+            مشاريعنا
+          </h2> */}
+          
           <div className="relative">
-            {/* Carousel Container */}
-            <div className="overflow-hidden rounded-2xl">
+            <div className="overflow-hidden px-4 md:px-8">
               <motion.div
-                className="flex"
-                animate={{ x: `-${currentSlide * 100}%` }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="flex transition-transform duration-300 ease-out"
+                animate={{ 
+                  transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` 
+                }}
+                style={{
+                  display: "flex",
+                  width: `${(content.projects?.length * 100) / slidesToShow}%`
+                }}
               >
                 {content.projects?.map((project: any) => (
-                  <div key={project.id} className="w-full shrink-0 px-4">
+                  <div
+                    key={project.id}
+                    className="shrink-0 px-2 md:px-3"
+                    style={{ width: `${100 / slidesToShow}%` }}
+                  >
                     <div
-                      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-gray-800 to-gray-900 h-full cursor-pointer"
+                      className="relative overflow-hidden rounded-2xl bg-linear-to-br from-gray-800 to-gray-900 h-full cursor-pointer hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300 border border-gray-700/50 group"
                       onClick={() => openVideoModal(project.id)}
                     >
                       {/* Thumbnail */}
                       <div className="aspect-video relative overflow-hidden">
-                        <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent z-10" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent z-10" />
                         {project.youtubeId ? (
-                          <img
-                            src={`https://img.youtube.com/vi/${project.youtubeId}/maxresdefault.jpg`}
-                            alt={project.title}
-                            className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                          />
+                          <>
+                            <img
+                              src={`https://img.youtube.com/vi/${project.youtubeId}/maxresdefault.jpg`}
+                              alt={project.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              onError={(e) => {
+                                e.currentTarget.src = `https://img.youtube.com/vi/${project.youtubeId}/hqdefault.jpg`;
+                              }}
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center z-20">
+                              <div className="w-16 h-16 rounded-full bg-linear-to-r from-green-500 to-cyan-500 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-110">
+                                <FaPlay className="text-white text-2xl ml-1" />
+                              </div>
+                            </div>
+                          </>
                         ) : (
                           <div className="w-full h-full bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center">
                             <div className="text-center">
@@ -287,25 +329,25 @@ export default function WebSolutionsPage() {
                             </div>
                           </div>
                         )}
-                        <div className="absolute top-4 left-4 bg-black/70 px-3 py-1 rounded-full text-sm z-20">
+                        <div className="absolute top-4 left-4 bg-black/70 px-3 py-1 rounded-full text-sm z-30">
                           {project.duration}
                         </div>
-                        <div className="absolute bottom-4 right-4 bg-linear-to-r from-green-500 to-cyan-500 px-3 py-1 rounded-full text-sm font-medium z-20">
+                        <div className="absolute bottom-4 right-4 bg-linear-to-r from-green-500 to-cyan-500 px-3 py-1 rounded-full text-sm font-medium z-30">
                           {project.category}
                         </div>
                       </div>
 
                       {/* Content */}
-                      <div className="p-8">
-                        <h3 className="text-2xl font-bold mb-4 hover:text-green-400 transition-colors">
+                      <div className="p-4 md:p-6">
+                        <h3 className="text-lg md:text-xl font-bold mb-3 group-hover:text-green-400 transition-colors line-clamp-2">
                           {project.title}
                         </h3>
-                        <p className="text-gray-400 mb-6">
+                        <p className="text-gray-400 mb-4 text-sm md:text-base line-clamp-3">
                           {project.description}
                         </p>
 
                         <div className="flex items-center justify-between">
-                          <button className="px-6 py-3 bg-linear-to-r from-green-600 to-cyan-600 rounded-full hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center gap-2">
+                          <button className="px-4 py-2 bg-linear-to-r from-green-600 to-cyan-600 rounded-full hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center gap-2 text-sm">
                             <FaPlay /> {content.viewProject || "View Project"}
                           </button>
                           <span className="text-gray-500 group-hover:text-cyan-400 transition-colors">
@@ -319,50 +361,48 @@ export default function WebSolutionsPage() {
               </motion.div>
             </div>
 
-            {/* Carousel Navigation */}
+            {/* Navigation Buttons */}
             <button
               onClick={prevSlide}
-              className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-6 w-12 h-12 bg-gray-800/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20"
+              className="absolute top-1/2 -translate-y-1/2 left-0 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20 border border-gray-600 shadow-lg"
             >
               {isArabic ? (
-                <FaChevronRight className="text-white text-xl" />
+                <FaChevronRight className="text-white text-lg md:text-xl" />
               ) : (
-                <FaChevronLeft className="text-white text-xl" />
+                <FaChevronLeft className="text-white text-lg md:text-xl" />
               )}
             </button>
             <button
               onClick={nextSlide}
-              className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-6 w-12 h-12 bg-gray-800/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20"
+              className="absolute top-1/2 -translate-y-1/2 right-0 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20 border border-gray-600 shadow-lg"
             >
               {isArabic ? (
-                <FaChevronLeft className="text-white text-xl" />
+                <FaChevronLeft className="text-white text-lg md:text-xl" />
               ) : (
-                <FaChevronRight className="text-white text-xl" />
+                <FaChevronRight className="text-white text-lg md:text-xl" />
               )}
             </button>
+          </div>
 
-            {/* Carousel Dots */}
-            <div className="flex justify-center mt-8 gap-2">
-              {content.projects?.map(
-                (_: any, index: number): JSX.Element => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      currentSlide === index
-                        ? "bg-linear-to-r from-green-500 to-cyan-500 w-8"
-                        : "bg-gray-700 hover:bg-gray-600"
-                    }`}
-                  />
-                ),
-              )}
-            </div>
+          {/* Carousel Dots */}
+          <div className="flex justify-center mt-8 gap-2">
+            {Array.from({ length: Math.max(1, content.projects?.length - slidesToShow + 1) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  currentSlide === index
+                    ? "bg-linear-to-r from-green-500 to-cyan-500 w-8"
+                    : "bg-gray-700 hover:bg-gray-600"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
-
         {/* Optimization Services Accordion */}
         <div className="mb-20">
-          <h2 className="text-3xl font-bold mb-10 text-center">
+          <h2 className="text-3xl font-bold mb-10 text-center bg-linear-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
             {content.optimizationTitle ||
               "Website Optimization and Maintenance Services"}
           </h2>
@@ -379,7 +419,7 @@ export default function WebSolutionsPage() {
                   onClick={() => toggleAccordion(service.id)}
                   className={`w-full flex items-center justify-between p-6 rounded-xl transition-all duration-300 ${
                     openAccordion === service.id
-                      ? `bg-linear-to-r ${service.color} text-white`
+                      ? `bg-linear-to-r ${service.color} text-white shadow-lg`
                       : "bg-gray-800/50 hover:bg-gray-800 text-gray-300"
                   }`}
                 >
@@ -475,13 +515,14 @@ export default function WebSolutionsPage() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-4xl bg-gray-900 rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-4xl bg-gray-900 rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-gray-700"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={closeVideoModal}
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/70 rounded-full flex items-center justify-center hover:bg-black/90 transition-colors"
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/70 rounded-full flex items-center justify-center hover:bg-black/90 transition-colors border border-gray-600"
+                aria-label="Close modal"
               >
                 <FaTimes className="text-white text-xl" />
               </button>
@@ -494,6 +535,7 @@ export default function WebSolutionsPage() {
                     className="w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    title={selectedProject.title}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
@@ -554,10 +596,10 @@ export default function WebSolutionsPage() {
                         (tech: string, index: number) => (
                           <span
                             key={index}
-                            className="px-4 py-2 bg-gray-800 rounded-full text-sm"
+                            className="px-4 py-2 bg-gray-800 rounded-full text-sm border border-gray-700"
                           >
                             {tech}
-                          </span>
+                        </span>
                         ),
                       )}
                     </div>

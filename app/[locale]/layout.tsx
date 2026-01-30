@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import { locales } from "@/lib/i18n";
 
 export async function generateStaticParams() {
@@ -17,11 +18,13 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   return (
-    <div dir={locale === "ar" ? "rtl" : "ltr"}>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-      <WhatsAppFloat locale={locale} />
-    </div>
+    <SmoothScrollProvider>
+      <div dir={locale === "ar" ? "rtl" : "ltr"}>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+        <WhatsAppFloat locale={locale} />
+      </div>
+    </SmoothScrollProvider>
   );
 }

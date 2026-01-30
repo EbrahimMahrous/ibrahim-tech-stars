@@ -201,14 +201,92 @@ export default function ConsultationSection() {
         className="relative overflow-hidden py-12 sm:py-16 md:py-20 bg-linear-to-b from-gray-900 via-black to-gray-900"
         dir={isArabic ? "rtl" : "ltr"}
       >
+        {/* Loading indicator */}
         <div className="container relative mx-auto px-4 sm:px-6">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-6 text-purple-400">
-              <span className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" />
-              <span className="text-sm md:text-base">
-                {isArabic ? "جاري التحميل..." : "Loading..."}
-              </span>
+          {/* Header section skeleton */}
+          <div className="text-center mb-16">
+            {/* Badge */}
+            <div className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gray-800/40 border border-gray-700/50 mb-8 animate-pulse">
+              <div className="w-5 h-5 bg-gray-700/60 rounded-full" />
+              <div className="h-3 w-32 bg-gray-700/60 rounded-full" />
             </div>
+
+            {/* Title */}
+            <div className="mb-6">
+              <div className="h-8 sm:h-10 md:h-12 bg-gray-800/70 rounded-lg max-w-3xl mx-auto mb-4 animate-pulse" />
+              <div className="h-6 sm:h-7 md:h-8 bg-gray-800/60 rounded-lg max-w-2xl mx-auto animate-pulse" />
+            </div>
+
+            {/* Description */}
+            <div className="h-4 bg-gray-800/60 rounded-full max-w-xl mx-auto animate-pulse" />
+          </div>
+
+          {/* Form container skeleton */}
+          <div className="max-w-4xl mx-auto">
+            <div className="relative backdrop-blur-xl bg-gray-900/30 rounded-3xl border border-gray-700/50 overflow-hidden animate-pulse">
+              {/* Top gradient bar */}
+              <div className="h-2 bg-linear-to-r from-gray-700 via-gray-600 to-gray-700" />
+
+              {/* Form content */}
+              <div className="p-6 sm:p-8 md:p-10">
+                {/* Form title */}
+                <div className="text-center mb-8">
+                  <div className="h-6 sm:h-7 bg-gray-800/70 rounded-full max-w-md mx-auto mb-3" />
+                  <div className="h-3 bg-gray-800/60 rounded-full max-w-sm mx-auto" />
+                </div>
+
+                {/* Form fields grid */}
+                <div className="space-y-6">
+                  {/* Name and Phone */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <div className="h-3 w-16 bg-gray-700/60 rounded-full mb-3" />
+                      <div className="h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                    </div>
+                    <div>
+                      <div className="h-3 w-16 bg-gray-700/60 rounded-full mb-3" />
+                      <div className="h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <div className="h-3 w-16 bg-gray-700/60 rounded-full mb-3" />
+                    <div className="h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                  </div>
+
+                  {/* Consultation Type */}
+                  <div>
+                    <div className="h-3 w-24 bg-gray-700/60 rounded-full mb-3" />
+                    <div className="h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                  </div>
+
+                  {/* Preferred Time */}
+                  <div>
+                    <div className="h-3 w-24 bg-gray-700/60 rounded-full mb-3" />
+                    <div className="h-12 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <div className="h-3 w-16 bg-gray-700/60 rounded-full mb-3" />
+                    <div className="h-32 bg-gray-800/40 border border-gray-700/50 rounded-xl" />
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="h-14 bg-linear-to-r from-gray-700 to-gray-600 rounded-xl" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom message skeleton */}
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-gray-800/30 border border-gray-700/40 animate-pulse">
+              <div className="w-5 h-5 bg-gray-700/60 rounded-full" />
+              <div className="h-3 w-64 bg-gray-700/60 rounded-full" />
+            </div>
+            <div className="h-3 w-48 bg-gray-800/50 rounded-full mx-auto mt-4 animate-pulse" />
           </div>
         </div>
       </section>
