@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { FaSun, FaMoon, FaGlobe, FaChevronDown, FaTimes, FaBars } from "react-icons/fa";
+import { FaSun, FaMoon, FaGlobe, FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
 import LanguageSwitcher from "../navigation/LanguageSwitcher";
 
@@ -300,41 +300,23 @@ export default function Header() {
               );
             }
 
-            const isActive = pathname === item.href;
-            
             return (
               <motion.div
                 key={item.href}
                 whileHover={{ scale: 1.05 }}
                 itemScope
                 itemType="https://schema.org/Service"
-                className="relative group/nav-item"
+                className="relative"
               >
                 <Link
                   href={item.href}
-                  className={`relative px-3 py-2 transition-all duration-300 group-hover/nav-item:text-cyan-400 flex items-center gap-2 ${
-                    isActive
-                      ? "text-cyan-400 font-bold"
-                      : "text-gray-300"
-                  }`}
+                  className="relative px-3 py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300 group flex items-center gap-2"
                   aria-label={item.ariaLabel}
                   title={item.title}
                   itemProp="url"
                 >
-                  <span 
-                    itemProp="name" 
-                    className={`relative inline-block transition-all duration-300 ${isActive ? 'font-bold' : 'group-hover/nav-item:font-medium'}`}
-                  >
-                    {item.label}
-                    {/* Underline with smooth transition */}
-                    <span 
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-linear-to-l from-green-400 to-cyan-400 transition-all duration-500 ease-out ${
-                        isActive 
-                          ? 'w-full opacity-100' 
-                          : 'w-0 opacity-0 group-hover/nav-item:w-full group-hover/nav-item:opacity-100'
-                      }`}
-                    />
-                  </span>
+                  <span itemProp="name">{item.label}</span>
+                  <span className="absolute bottom-0 right-1/2 w-0 h-px bg-linear-to-l from-green-400 to-cyan-400 group-hover:w-full group-hover:right-0 transition-all duration-300" />
                 </Link>
               </motion.div>
             );
@@ -424,281 +406,200 @@ export default function Header() {
             switchLanguage={switchLanguage}
           />
 
-          {/* Burger Menu Button for screens < 1024px */}
-          <motion.button
+          {/* Mobile Menu Button */}
+          <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="relative p-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label={menuOpen ? content.buttons.mobileMenu.close : content.buttons.mobileMenu.open}
+            className="relative flex flex-col justify-center items-center w-10 h-10 group"
+            aria-label={content.buttons.mobileMenu.open}
             aria-expanded={menuOpen}
-            title={menuOpen ? content.buttons.mobileMenu.closeMenu : content.buttons.mobileMenu.showMenu}
+            title={content.buttons.mobileMenu.showMenu}
           >
-            {menuOpen ? (
-              <FaTimes className="w-6 h-6 text-gray-300" />
-            ) : (
-              <FaBars className="w-6 h-6 text-gray-300" />
-            )}
-          </motion.button>
+            <span
+              className={`block w-5 h-0.5 bg-gray-300 transition-all duration-300 ${
+                menuOpen ? "rotate-45 translate-y-1" : "-translate-y-1"
+              }`}
+            />
+            <span
+              className={`block w-5 h-0.5 bg-gray-300 transition-all duration-300 mt-1 ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block w-5 h-0.5 bg-gray-300 transition-all duration-300 mt-1 ${
+                menuOpen ? "-rotate-45 -translate-y-1" : "translate-y-1"
+              }`}
+            />
+
+            <div
+              className={`absolute inset-0 rounded-full bg-green-500/20 blur transition-all duration-300 ${
+                menuOpen ? "scale-100" : "scale-0"
+              }`}
+            />
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay (for screens < 1024px) */}
-      <motion.div
-        initial={false}
-        animate={menuOpen ? "open" : "closed"}
-        variants={{
-          open: { opacity: 1, pointerEvents: "auto" },
-          closed: { opacity: 0, pointerEvents: "none" },
-        }}
-        transition={{ duration: 0.2 }}
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden z-40"
-        onClick={() => setMenuOpen(false)}
-      />
-
-      {/* Mobile Menu Panel (for screens < 1024px) */}
+      {/* Mobile Menu (visible on screens < 1024px) */}
       <motion.nav
         initial={false}
         animate={menuOpen ? "open" : "closed"}
         variants={{
-          open: { 
-            x: 0,
-            opacity: 1,
-            transition: { type: "spring", stiffness: 300, damping: 30 }
-          },
-          closed: { 
-            x: isArabic ? "-100%" : "100%",
+          open: { opacity: 1, y: 0, display: "flex" },
+          closed: {
             opacity: 0,
-            transition: { duration: 0.2 }
+            y: -20,
+            transitionEnd: { display: "none" },
           },
         }}
-        className={`fixed top-0 ${isArabic ? "left-0" : "right-0"} h-full w-80 max-w-full bg-gray-900/95 backdrop-blur-xl border-l border-gray-800 z-50 lg:hidden overflow-y-auto`}
+        transition={{ duration: 0.3 }}
+        className="lg:hidden bg-gray-900/95 backdrop-blur-lg border-t border-gray-700 p-4 flex-col gap-2"
         dir={isArabic ? "rtl" : "ltr"}
         aria-label={content.navigation.mobileNav}
         role="navigation"
         itemScope
         itemType="https://schema.org/SiteNavigationElement"
       >
-        {/* Mobile Menu Header */}
-        <div className="p-6 border-b border-gray-800 flex items-center justify-between">
-          <Link
-            href={`/${locale}`}
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center"
-          >
-            <Image
-              src="/logo/logo-ibrahim-tr.png"
-              alt={content.logo.alt}
-              width={120}
-              height={35}
-              className="object-contain"
-            />
-          </Link>
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-full"
-            aria-label={content.buttons.mobileMenu.close}
-          >
-            <FaTimes className="w-5 h-5 text-gray-300" />
-          </button>
-        </div>
-
-        {/* Mobile Menu Content */}
-        <div className="p-4">
-          {navItems.map((item) => {
-            if (item.type === "dropdown") {
-              const isDropdownOpen = openDropdown === item.key;
-              const isActive = item.items.some(subItem => pathname === subItem.href);
-              
-              return (
-                <div
-                  key={item.key}
-                  className="mb-2"
-                  itemScope
-                  itemType="https://schema.org/Service"
-                >
-                  <button
-                    onClick={() => toggleDropdown(item.key)}
-                    className={`w-full px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-between ${
-                      isActive || isDropdownOpen
-                        ? "bg-gray-800 text-cyan-400 font-bold"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-cyan-400"
-                    }`}
-                    aria-label={item.ariaLabel}
-                    title={item.title}
-                    aria-haspopup="true"
-                    aria-expanded={isDropdownOpen}
-                  >
-                    <span 
-                      className="text-left relative inline-block" 
-                      itemProp="name"
-                    >
-                      {item.label}
-                      {(isActive || isDropdownOpen) && (
-                        <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-linear-to-l from-green-400 to-cyan-400 transition-all duration-500 ease-out" />
-                      )}
-                    </span>
-                    <motion.span
-                      animate={{ rotate: isDropdownOpen ? 180 : 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="text-xs"
-                    >
-                      <FaChevronDown />
-                    </motion.span>
-                  </button>
-
-                  <motion.div
-                    initial={false}
-                    animate={isDropdownOpen ? "open" : "closed"}
-                    variants={{
-                      open: {
-                        opacity: 1,
-                        height: "auto",
-                        marginTop: "0.5rem",
-                        marginBottom: "0.5rem",
-                        transition: {
-                          duration: 0.4,
-                          ease: "easeInOut"
-                        }
-                      },
-                      closed: {
-                        opacity: 0,
-                        height: 0,
-                        marginTop: 0,
-                        marginBottom: 0,
-                        transition: {
-                          duration: 0.3,
-                          ease: "easeInOut"
-                        }
-                      },
-                    }}
-                    className="overflow-hidden"
-                  >
-                    <div className={`flex flex-col ${isArabic ? 'pr-4' : 'pl-4'} gap-1`}>
-                      {item.items.map((subItem) => {
-                        const isSubActive = pathname === subItem.href;
-                        
-                        return (
-                          <Link
-                            key={subItem.href}
-                            href={subItem.href}
-                            className={`block px-4 py-2 rounded transition-all duration-300 ${
-                              isSubActive
-                                ? "bg-gray-700 text-cyan-400 font-bold"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-cyan-400"
-                            }`}
-                            aria-label={subItem.title}
-                            title={subItem.title}
-                            onClick={() => {
-                              setMenuOpen(false);
-                              setOpenDropdown(null);
-                            }}
-                            itemProp="url"
-                          >
-                            <span 
-                              itemProp="name"
-                              className="relative inline-block"
-                            >
-                              {subItem.label}
-                              {isSubActive && (
-                                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-linear-to-l from-green-400 to-cyan-400 transition-all duration-500 ease-out" />
-                              )}
-                            </span>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                </div>
-              );
-            }
-
-            const isActive = pathname === item.href;
-            
+        {navItems.map((item) => {
+          if (item.type === "dropdown") {
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`block px-4 py-3 rounded-lg mb-2 transition-all duration-300 relative group/mobile-item ${
-                  isActive
-                    ? "bg-gray-800 text-cyan-400 font-bold"
-                    : "text-gray-300 hover:bg-gray-800 hover:text-cyan-400"
-                }`}
-                aria-label={item.ariaLabel}
-                title={item.title}
-                onClick={() => setMenuOpen(false)}
-                itemProp="url"
+              <div
+                key={item.key}
+                className="w-full"
+                itemScope
+                itemType="https://schema.org/Service"
               >
-                <div className="flex items-center justify-between">
-                  <span 
-                    itemProp="name"
-                    className="relative inline-block transition-all duration-300"
+                <button
+                  onClick={() => toggleDropdown(item.key)}
+                  className="w-full px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-cyan-400 transition-all border border-transparent hover:border-gray-600 flex items-center justify-between text-gray-300"
+                  aria-label={item.ariaLabel}
+                  title={item.title}
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === item.key}
+                  role="button"
+                  itemProp="name"
+                >
+                  <span className="font-medium">{item.label}</span>
+                  <motion.span
+                    animate={{ rotate: openDropdown === item.key ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-xs"
                   >
-                    {item.label}
-                    {isActive && (
-                      <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-linear-to-l from-green-400 to-cyan-400 transition-all duration-500 ease-out" />
-                    )}
-                  </span>
-                  
-                  {item.badge && (
-                    <span className="text-xs font-bold bg-linear-to-r from-green-500 to-cyan-500 text-white px-2 py-1 rounded-full transition-all duration-300 hover:scale-105">
-                      {item.badge}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            );
-          })}
+                    <FaChevronDown />
+                  </motion.span>
+                </button>
 
-          {/* Mobile CTA Button */}
-          <div className="mt-6 pt-6 border-t border-gray-800">
+                <motion.div
+                  initial={false}
+                  animate={openDropdown === item.key ? "open" : "closed"}
+                  variants={{
+                    open: {
+                      opacity: 1,
+                      height: "auto",
+                      marginTop: "0.5rem",
+                      marginBottom: "0.5rem",
+                    },
+                    closed: {
+                      opacity: 0,
+                      height: 0,
+                      marginTop: 0,
+                      marginBottom: 0,
+                    },
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                  role="menu"
+                  aria-label={content.navigation.subServices}
+                >
+                  <div className="flex flex-col pr-4 gap-1">
+                    {item.items.map((subItem) => (
+                      <Link
+                        key={subItem.href}
+                        href={subItem.href}
+                        className="px-4 py-2 rounded hover:bg-gray-700 hover:text-cyan-400 transition-all text-gray-300"
+                        aria-label={subItem.title}
+                        title={subItem.title}
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setOpenDropdown(null);
+                        }}
+                        role="menuitem"
+                        itemProp="url"
+                      >
+                        <span itemProp="name">{subItem.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            );
+          }
+
+          return (
             <Link
-              href={`/${locale}/consultation`}
-              className="block w-full px-4 py-3 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-green-500/40 transition-all duration-300 text-center hover:scale-[1.02] active:scale-[0.98]"
-              aria-label={content.buttons.consultation.ariaLabel}
-              title={content.buttons.consultation.title}
+              key={item.href}
+              href={item.href}
+              className="px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-cyan-400 transition-all border border-transparent hover:border-gray-600 font-medium flex items-center justify-between text-gray-300 relative"
+              aria-label={item.ariaLabel}
+              title={item.title}
               onClick={() => setMenuOpen(false)}
               itemProp="url"
             >
-              {content.buttons.consultation.label}
-            </Link>
-          </div>
+              <span itemProp="name">{item.label}</span>
 
-          {/* Mobile Theme Toggle and Language Switch */}
-          <div className="mt-4 pt-4 border-t border-gray-800 flex items-center justify-between">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-300 text-gray-300"
-              aria-label={content.buttons.darkMode.toggle}
-            >
-              {darkMode ? (
-                <FaSun className="w-5 h-5 text-yellow-500 transition-all duration-300" />
-              ) : (
-                <FaMoon className="w-5 h-5 text-gray-300 transition-all duration-300" />
+              {item.badge && (
+                <div className="flex flex-col items-end">
+                  <span className="text-[10px] font-bold bg-linear-to-r from-green-500 to-cyan-500 text-white px-2 py-0.5 rounded-full">
+                    {item.badge}
+                  </span>
+                </div>
               )}
-              <span className="transition-all duration-300">
-                {darkMode ? content.buttons.darkMode.light : content.buttons.darkMode.dark}
-              </span>
-            </button>
-
-            <Link
-              href={switchedPath}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-700 hover:bg-gray-800 transition-all duration-300 text-gray-300 hover:scale-[1.02]"
-              aria-label={
-                isArabic
-                  ? content.buttons.languageSwitch.switchToArabic
-                  : content.buttons.languageSwitch.switchToEnglish
-              }
-              onClick={() => setMenuOpen(false)}
-            >
-              <FaGlobe className="w-4 h-4 text-green-500 transition-all duration-300" />
-              <span className="transition-all duration-300">
-                {isArabic
-                  ? content.buttons.languageSwitch.english
-                  : content.buttons.languageSwitch.arabic}
-              </span>
             </Link>
-          </div>
+          );
+        })}
+
+        {/* Mobile CTA Button */}
+        <motion.div
+          whileTap={{ scale: 0.95 }}
+          className="mt-4 pt-4 border-t border-gray-700"
+        >
+          <Link
+            href={`/${locale}/consultation`}
+            className="block w-full px-4 py-3 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-green-500/40 transition-all text-center"
+            aria-label={content.buttons.consultation.ariaLabel}
+            title={content.buttons.consultation.title}
+            onClick={() => setMenuOpen(false)}
+            itemProp="url"
+          >
+            {content.buttons.consultation.label}
+          </Link>
+        </motion.div>
+
+        {/* Mobile Language Switch Full */}
+        <div className="pt-4 mt-4 border-t border-gray-700">
+          <Link
+            href={switchedPath}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-gray-600 hover:bg-gray-700 transition-all font-medium text-gray-300"
+            aria-label={
+              isArabic
+                ? content.buttons.languageSwitch.switchToArabic
+                : content.buttons.languageSwitch.switchToEnglish
+            }
+            title={
+              isArabic
+                ? content.buttons.languageSwitch.switchToEnglish
+                : content.buttons.languageSwitch.switchToArabic
+            }
+            onClick={() => setMenuOpen(false)}
+            rel="alternate"
+            hrefLang={switchLanguage}
+          >
+            <FaGlobe className="w-4 h-4 text-green-500" />
+            <span>
+              {isArabic
+                ? content.buttons.languageSwitch.english
+                : content.buttons.languageSwitch.arabic}
+            </span>
+          </Link>
         </div>
       </motion.nav>
 
