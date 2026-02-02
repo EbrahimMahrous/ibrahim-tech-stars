@@ -13,135 +13,230 @@ export const webSolutionsContent = {
       id: 1,
       title: "Pearline Store Dashboard",
       category: "Dashboard",
-      duration: "2:45",
-      youtubeId: "CCav701xyCY",
+      duration: "5:57",
+      youtubeId: "k_9wrb6miII",
       description:
-        "Developing Pearline store management interface using React and Tailwind CSS with an advanced analytics system",
+        "Development of a comprehensive admin dashboard for Pearline Store using React and Tailwind CSS with advanced analytics and live charts",
       technologies: ["React", "Tailwind CSS", "Chart.js", "React Query"],
       features: [
-        "Interactive Dashboard",
-        "Live Charts and Statistics",
-        "Order and Product Management",
-        "Smart Notification System",
+        "Interactive dashboard with live statistics",
+        "Advanced sales and performance tracking charts",
+        "Complete order, product, and inventory management",
+        "Smart alert system for important events",
       ],
       challenge:
-        "Client's need for an integrated monitoring and management system for his online store",
+        "Client needed an integrated monitoring and management system for their e-commerce store to facilitate tracking and decision-making",
       solution:
-        "Developing a custom dashboard that displays all important data in one place",
+        "Development of a custom dashboard displaying all critical data in a unified interface with instant analysis capabilities",
       results:
-        "Improved management efficiency by 40%, reduced processing time by 60%",
+        "40% improvement in management efficiency, 60% reduction in order processing time, increased operational productivity",
       liveUrl: "#",
     },
     {
       id: 2,
       title: "Kleitech Early Kidney Failure Detection Platform",
       category: "Medical Platform",
-      duration: "3:15",
-      youtubeId: "iQoH2iFu3GA",
+      duration: "4:29",
+      youtubeId: "OwD5muAhg24",
       description:
-        "Specialized medical platform for early detection of kidney failure using artificial intelligence",
+        "Specialized medical platform for early kidney failure detection through CT scan analysis using artificial intelligence",
       technologies: ["Next.js", "TypeScript", "TensorFlow.js", "MongoDB"],
       features: [
-        "Patient Data Analysis",
-        "Interactive Medical Reports",
-        "Medical Alert System",
-        "Multilingual Interface",
+        "Automatic CT scan image analysis",
+        "Interactive medical reports with personalized recommendations",
+        "Medical alert system for periodic follow-ups",
+        "Multilingual user-friendly interface",
       ],
       challenge:
-        "Providing an accurate and easy-to-use medical diagnosis system for doctors and patients",
+        "Providing an accurate and easy-to-use medical diagnosis system for doctors and patients for early kidney disease detection",
       solution:
-        "Building an integrated platform with AI algorithms for analysis",
+        "Building an integrated platform with advanced AI algorithms for image analysis and personalized health recommendations",
       results:
-        "Increased diagnostic accuracy by 35%, improved patient user experience",
+        "35% increase in diagnosis accuracy, 50% improvement in patient user experience, 70% faster analysis process",
       liveUrl: "#",
     },
     {
       id: 3,
-      title: "OTM Transportation Platform Dashboard",
-      category: "Transportation",
-      duration: "2:30",
-      youtubeId: "KVOkDhi2uj4",
+      title: "Sheyal Transport Platform Dashboard",
+      category: "Transport & Logistics",
+      duration: "2:38",
+      youtubeId: "aLF8Ww5OA9Y",
       description:
-        "Integrated shipment management and transportation platform with live shipment tracking",
+        "Complete shipment management and transport platform with live shipment tracking and logistics operations management",
       technologies: ["React", "Node.js", "Socket.io", "Google Maps API"],
       features: [
-        "Live Shipment Tracking",
-        "Driver Management",
-        "Billing System",
-        "Performance Reports",
+        "Live shipment tracking on maps",
+        "Driver and vehicle management",
+        "Invoice and financial reporting system",
+        "Comprehensive performance reports and analytics",
       ],
       challenge:
-        "Real-time shipment tracking and logistics operations management",
+        "Real-time shipment tracking and efficient management of complex logistics operations",
       solution:
-        "Developing an integrated tracking system with live maps and instant notifications",
+        "Developing an integrated tracking system with live maps, instant notifications, and centralized dashboard",
       results:
-        "Reduced tracking time by 70%, increased customer satisfaction by 45%",
+        "70% reduction in shipment tracking time, 45% increase in customer satisfaction, 55% improvement in operational efficiency",
       liveUrl: "#",
     },
     {
       id: 4,
-      title: "Learning Management System (LMS)",
-      category: "Education",
-      duration: "3:45",
-      youtubeId: "KP3CNoaiyBg",
+      title: "Pearline E-commerce Store",
+      category: "E-commerce",
+      duration: "7:23",
+      youtubeId: "VKlylRcazeU",
       description:
-        "Integrated e-learning platform with virtual classrooms and smart assessments",
-      technologies: ["Next.js", "MongoDB", "WebRTC", "Stripe"],
+        "Complete e-commerce store for cosmetics and personal care products with advanced Arabic language support",
+      technologies: ["WordPress", "WooCommerce", "Elementor", "Arabic Support"],
       features: [
-        "Virtual Classrooms",
-        "Automatic Assessments",
-        "Certified Certificates",
-        "Student Tracking System",
+        "Arabic-responsive design for all devices",
+        "Secure multi-option payment gateway",
+        "Coupon and promotional offers system",
+        "Order tracking and status updates",
       ],
-      challenge: "Creating an interactive online learning environment",
+      challenge:
+        "Creating an easy-to-use e-commerce store with full Arabic language support and localized user experience",
       solution:
-        "An integrated platform with live classes and smart assessment system",
+        "Developing a custom store with simple user interface and seamless shopping experience designed for the Arab market",
       results:
-        "Increased student engagement by 60%, improved learning outcomes",
+        "150% sales increase, 30% conversion rate improvement, growth in repeat customers",
       liveUrl: "#",
     },
     {
       id: 5,
-      title: "Pearline E-Commerce Store",
-      category: "E-Commerce",
-      duration: "2:15",
-      youtubeId: "jNzhuBaNC5o",
+      title: "WordPress Porto Store",
+      category: "E-commerce",
+      duration: "2:19",
+      youtubeId: "-X9ZzLyPXyM",
       description:
-        "Integrated e-commerce store for cosmetic and personal care products",
-      technologies: ["WordPress", "WooCommerce", "Elementor", "Arabic Support"],
+        "Design and development of an e-commerce store using WordPress with unique designs and advanced performance optimization",
+      technologies: ["WordPress", "Porto Theme", "WooCommerce", "Custom CSS"],
       features: [
-        "Responsive Arabic Design",
-        "Multiple Payment Gateway",
-        "Coupon System",
-        "Order Tracking",
+        "Unique and attractive product designs",
+        "Advanced SEO optimization for search engines",
+        "High loading speed across all devices",
+        "Multi-language and multi-region support",
       ],
       challenge:
-        "Creating a user-friendly e-commerce store with Arabic language support",
+        "Improving WordPress store speed and performance while maintaining unique design and excellent user experience",
       solution:
-        "Developing a custom store with simple user interface and smooth shopping experience",
-      results: "Increased sales by 150%, improved conversion rate by 30%",
+        "Optimizing site code, adding caching technologies, and improving images and resources",
+      results:
+        "65% improvement in loading speed, 40% increase in search engine visibility, enhanced user experience",
       liveUrl: "#",
     },
     {
       id: 6,
-      title: "WordPress Porto Store",
-      category: "E-Commerce",
-      duration: "2:00",
-      youtubeId: "yxFSkjhjx98",
+      title: "VetCare Veterinary Clinic",
+      category: "Veterinary Healthcare",
+      duration: "0:31",
+      youtubeId: "D0DQfathCzU",
       description:
-        "Design and development of an e-commerce store using WordPress with unique designs",
-      technologies: ["WordPress", "Porto Theme", "WooCommerce", "Custom CSS"],
+        "Complete veterinary clinic website with responsive and fast design using Bootstrap for animal care services",
+      technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
       features: [
-        "Unique Design",
-        "SEO Optimization",
-        "High Loading Speed",
-        "Multilingual Support",
+        "Fully responsive design for all screens",
+        "Engaging presentation slides (Carousel)",
+        "Interactive appointment booking form",
+        "Comprehensive service information",
       ],
       challenge:
-        "Improving the speed and performance of a WordPress store while maintaining unique design",
-      solution: "Optimizing site code and adding caching technologies",
+        "Creating an attractive and easy-to-use website for the veterinary clinic that clearly displays services",
+      solution:
+        "Designing a website using Bootstrap for rapid implementation with enhanced user experience through interactions",
       results:
-        "Improved loading speed by 65%, increased search engine visibility",
+        "Improved clinic online presence, easier appointment booking, increased customer reach",
+      liveUrl: "#",
+    },
+    {
+      id: 7,
+      title: "Simple Clothes E-commerce Store",
+      category: "E-commerce",
+      duration: "0:30",
+      youtubeId: "AMwr-JFcZTQ",
+      description:
+        "Simple and elegant e-commerce clothing store interface with fully responsive design using only HTML and CSS",
+      technologies: ["HTML", "CSS", "Responsive Design"],
+      features: [
+        "Fully responsive design for all devices",
+        "Attractive product display cards",
+        "Harmonious color scheme",
+        "Intuitive user interface",
+      ],
+      challenge:
+        "Creating a simple and attractive clothing store interface using only basic web technologies",
+      solution:
+        "Using HTML and CSS with media queries to create a completely responsive design",
+      results:
+        "Creating a lightweight and fast interface, learning responsive design fundamentals, applying design best practices",
+      liveUrl: "#",
+    },
+    {
+      id: 8,
+      title: "Interactive E-commerce Store Interface",
+      category: "E-commerce",
+      duration: "0:58",
+      youtubeId: "6Fi2njD201E",
+      description:
+        "Complete e-commerce store interface with interactive shopping cart and advanced filtering system using vanilla JavaScript",
+      technologies: ["HTML", "CSS", "JavaScript", "LocalStorage"],
+      features: [
+        "Dynamic interactive shopping cart",
+        "Product filtering and categorization system",
+        "Local user data storage",
+        "Smooth and interactive user interface",
+      ],
+      challenge:
+        "Building a complete store interface with basic technologies while adding advanced interactivity",
+      solution:
+        "Using JavaScript for DOM management and user interactions with data storage in LocalStorage",
+      results:
+        "Creating a fully functional store, learning application state management, understanding data storage fundamentals",
+      liveUrl: "#",
+    },
+    {
+      id: 9,
+      title: "Global Brands Page - Ajyad Al-Seha Pharmacy",
+      category: "E-commerce",
+      duration: "0:49",
+      youtubeId: "shJwcxiXNSo",
+      description:
+        "Development of a dedicated global brands page for Ajyad Al-Seha Pharmacy Saudi store with custom Shopify enhancements",
+      technologies: ["Shopify", "HTML", "CSS", "JavaScript"],
+      features: [
+        "Dedicated global brands page",
+        "Dynamic Shopify sections",
+        "Carousel-style product display",
+        "Custom header and footer design",
+      ],
+      challenge:
+        "Developing custom enhancements for a live Shopify store serving customers in the Saudi market",
+      solution:
+        "Direct work on Shopify code with addition of advanced features and user experience improvements",
+      results:
+        "Enhanced global brands experience, added store interactivity, improved product interface",
+      liveUrl: "#",
+    },
+    {
+      id: 10,
+      title: "Al-Dafour Marketing Services Website",
+      category: "Digital Marketing",
+      duration: "0:59",
+      youtubeId: "xAtQrxZTZoE",
+      description:
+        "Professional website for a Saudi digital marketer with fully responsive design using Framer platform",
+      technologies: ["Framer", "Responsive Design", "Web Development"],
+      features: [
+        "Fully responsive design for all devices",
+        "Digital marketing services showcase",
+        "Modern and attractive user interface",
+        "Fast loading and high performance",
+      ],
+      challenge:
+        "Creating a website that professionally and attractively displays digital marketing services to clients",
+      solution:
+        "Using Framer platform to build a fast and responsive website while maintaining modern design",
+      results:
+        "Professional service presentation, attracting new clients, improving digital brand presence",
       liveUrl: "#",
     },
   ],

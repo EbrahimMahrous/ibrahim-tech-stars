@@ -43,26 +43,25 @@ export default function WebSolutionsPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const skillsContainerRef = useRef<HTMLDivElement>(null);
-  const [slidesToShow, setSlidesToShow] = useState(3); // عدد الفيديوهات المعروضة
+  const [slidesToShow, setSlidesToShow] = useState(3);
 
   const locale = pathname.split("/")[1] || "ar";
   const isArabic = locale === "ar";
 
-  // تحديد عدد الشرائح المعروضة حسب حجم الشاشة
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1280) {
-        setSlidesToShow(3); // شاشات كبيرة
+        setSlidesToShow(3);
       } else if (window.innerWidth >= 768) {
-        setSlidesToShow(2); // شاشات متوسطة
+        setSlidesToShow(2);
       } else {
-        setSlidesToShow(1); // شاشات صغيرة
+        setSlidesToShow(1);
       }
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const iconMap: { [key: string]: JSX.Element } = {
@@ -141,6 +140,7 @@ export default function WebSolutionsPage() {
 
     loadContent();
   }, [locale]);
+
   useEffect(() => {
     const container = skillsContainerRef.current;
     if (!container || !content?.skills) return;
@@ -177,17 +177,13 @@ export default function WebSolutionsPage() {
   const nextSlide = () => {
     if (!content?.projects) return;
     const maxSlide = Math.max(0, content.projects.length - slidesToShow);
-    setCurrentSlide((prev) =>
-      prev >= maxSlide ? 0 : prev + 1,
-    );
+    setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
     if (!content?.projects) return;
     const maxSlide = Math.max(0, content.projects.length - slidesToShow);
-    setCurrentSlide((prev) =>
-      prev === 0 ? maxSlide : prev - 1,
-    );
+    setCurrentSlide((prev) => (prev === 0 ? maxSlide : prev - 1));
   };
 
   const openVideoModal = (id: number) => {
@@ -209,6 +205,10 @@ export default function WebSolutionsPage() {
   const selectedProject = content?.projects?.find(
     (p: any) => p.id === selectedVideo,
   );
+
+  const getYoutubeThumbnail = (youtubeId: string) => {
+    return `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+  };
 
   if (!content) {
     return (
@@ -272,27 +272,21 @@ export default function WebSolutionsPage() {
 
         {/* Projects Carousel Section */}
         <div className="mb-20">
-          {/* <h2 className="text-3xl font-bold mb-10 text-center bg-linear-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
-            مشاريعنا
-          </h2> */}
-          
           <div className="relative">
-            <div className="overflow-hidden px-4 md:px-8">
-              <motion.div
-                className="flex transition-transform duration-300 ease-out"
-                animate={{ 
-                  transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` 
-                }}
+            <div className="overflow-hidden">
+              <div
+                className="flex gap-4 transition-transform duration-500 ease-in-out"
                 style={{
-                  display: "flex",
-                  width: `${(content.projects?.length * 100) / slidesToShow}%`
+                  transform: `translateX(${isArabic ? "" : "-"}${currentSlide * (100 / slidesToShow)}%)`,
                 }}
               >
                 {content.projects?.map((project: any) => (
                   <div
                     key={project.id}
-                    className="shrink-0 px-2 md:px-3"
-                    style={{ width: `${100 / slidesToShow}%` }}
+                    className="shrink-0"
+                    style={{
+                      width: `calc(${100 / slidesToShow}% - ${((slidesToShow - 1) * 16) / slidesToShow}px)`,
+                    }}
                   >
                     <div
                       className="relative overflow-hidden rounded-2xl bg-linear-to-br from-gray-800 to-gray-900 h-full cursor-pointer hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300 border border-gray-700/50 group"
@@ -304,12 +298,10 @@ export default function WebSolutionsPage() {
                         {project.youtubeId ? (
                           <>
                             <img
-                              src={`https://img.youtube.com/vi/${project.youtubeId}/maxresdefault.jpg`}
+                              src={getYoutubeThumbnail(project.youtubeId)}
                               alt={project.title}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                              onError={(e) => {
-                                e.currentTarget.src = `https://img.youtube.com/vi/${project.youtubeId}/hqdefault.jpg`;
-                              }}
+                              loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center z-20">
                               <div className="w-16 h-16 rounded-full bg-linear-to-r from-green-500 to-cyan-500 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-110">
@@ -358,48 +350,59 @@ export default function WebSolutionsPage() {
                     </div>
                   </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             {/* Navigation Buttons */}
-            <button
-              onClick={prevSlide}
-              className="absolute top-1/2 -translate-y-1/2 left-0 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20 border border-gray-600 shadow-lg"
-            >
-              {isArabic ? (
-                <FaChevronRight className="text-white text-lg md:text-xl" />
-              ) : (
-                <FaChevronLeft className="text-white text-lg md:text-xl" />
-              )}
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute top-1/2 -translate-y-1/2 right-0 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20 border border-gray-600 shadow-lg"
-            >
-              {isArabic ? (
-                <FaChevronLeft className="text-white text-lg md:text-xl" />
-              ) : (
-                <FaChevronRight className="text-white text-lg md:text-xl" />
-              )}
-            </button>
+            {content.projects && content.projects.length > slidesToShow && (
+              <>
+                <button
+                  onClick={prevSlide}
+                  className="absolute top-1/2 -translate-y-1/2 -left-4 w-12 h-12 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20 border border-gray-600 shadow-lg"
+                  aria-label="Previous slide"
+                >
+                  {isArabic ? (
+                    <FaChevronRight className="text-white text-xl" />
+                  ) : (
+                    <FaChevronLeft className="text-white text-xl" />
+                  )}
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute top-1/2 -translate-y-1/2 -right-4 w-12 h-12 bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-gray-700 transition-all z-20 border border-gray-600 shadow-lg"
+                  aria-label="Next slide"
+                >
+                  {isArabic ? (
+                    <FaChevronLeft className="text-white text-xl" />
+                  ) : (
+                    <FaChevronRight className="text-white text-xl" />
+                  )}
+                </button>
+              </>
+            )}
           </div>
 
           {/* Carousel Dots */}
-          <div className="flex justify-center mt-8 gap-2">
-            {Array.from({ length: Math.max(1, content.projects?.length - slidesToShow + 1) }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentSlide === index
-                    ? "bg-linear-to-r from-green-500 to-cyan-500 w-8"
-                    : "bg-gray-700 hover:bg-gray-600"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {content.projects && content.projects.length > slidesToShow && (
+            <div className="flex justify-center mt-8 gap-2">
+              {Array.from({
+                length: Math.ceil(content.projects.length - slidesToShow + 1),
+              }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-3 rounded-full transition-all duration-300 ${
+                    currentSlide === index
+                      ? "bg-linear-to-r from-green-500 to-cyan-500 w-8"
+                      : "bg-gray-700 hover:bg-gray-600 w-3"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
+
         {/* Optimization Services Accordion */}
         <div className="mb-20">
           <h2 className="text-3xl font-bold mb-10 text-center bg-linear-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
@@ -599,7 +602,7 @@ export default function WebSolutionsPage() {
                             className="px-4 py-2 bg-gray-800 rounded-full text-sm border border-gray-700"
                           >
                             {tech}
-                        </span>
+                          </span>
                         ),
                       )}
                     </div>

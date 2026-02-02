@@ -21,8 +21,7 @@ export default function WhatsAppFloat({ locale }: WhatsAppFloatProps) {
 
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  const positionClass =
-    locale === "ar" ? "left-4 md:left-6" : "right-4 md:right-6";
+  const positionClass = "right-4 md:right-6";
 
   useEffect(() => {
     setIsVisible(true);
@@ -140,9 +139,7 @@ export default function WhatsAppFloat({ locale }: WhatsAppFloatProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.8 }}
             transition={{ duration: 0.2, type: "spring" }}
-            className={`absolute ${
-              locale === "ar" ? "right-full mr-3" : "left-full ml-3"
-            } bottom-1/2 transform translate-y-1/2`}
+            className="absolute right-full mr-3 bottom-1/2 transform translate-y-1/2"
           >
             <div className="relative">
               <div className="bg-linear-to-r from-gray-900 to-black text-white px-4 py-3 rounded-xl text-sm font-medium shadow-2xl border border-gray-700/80 backdrop-blur-xl whitespace-nowrap">
@@ -156,13 +153,7 @@ export default function WhatsAppFloat({ locale }: WhatsAppFloatProps) {
                 </div>
               </div>
               {/* Tooltip Arrow */}
-              <div
-                className={`absolute top-1/2 -translate-y-1/2 ${
-                  locale === "ar"
-                    ? "right-0 translate-x-1/2 border-l-gray-900"
-                    : "left-0 -translate-x-1/2 border-r-gray-900"
-                } border-t-8 border-b-8 border-t-transparent border-b-transparent`}
-              ></div>
+              <div className="absolute top-1/2 -translate-y-1/2 left-full border-t-8 border-b-8 border-t-transparent border-b-transparent border-l-gray-900"></div>
             </div>
           </motion.div>
         )}
