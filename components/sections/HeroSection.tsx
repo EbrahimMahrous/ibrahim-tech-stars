@@ -5,6 +5,7 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiCode } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 import {
   FloatingPlanet,
   SpaceParticles,
@@ -16,6 +17,7 @@ import { usePathname } from "next/navigation";
 export default function HeroSection() {
   const pathname = usePathname();
   const [content, setContent] = useState<any>(null);
+  const router = useRouter();
   const locale = pathname.split("/")[1] || "ar";
   const isArabic = locale === "ar";
 
@@ -198,27 +200,19 @@ export default function HeroSection() {
             transition={{ delay: 0.7, duration: 0.8 }}
           >
             <motion.button
-              className="px-8 py-3 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-black font-bold hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/30 flex items-center gap-2"
+              className="px-8 py-3 rounded-full bg-linear-to-r from-green-500 to-cyan-500 text-black font-bold hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/30 flex items-center gap-2 cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() =>
-                document
-                  .getElementById(content.elements.contactSectionId)
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => router.push(`/${locale}/consultation`)}
             >
               <FiMail /> {content.buttons.startProject.text}
-            </motion.button>
+            </motion.button> 
 
             <motion.button
-              className="px-8 py-3 rounded-full text-white border border-white/30 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm flex items-center gap-2"
+              className="px-8 py-3 rounded-full text-white border border-white/30 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm flex items-center gap-2 cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() =>
-                document
-                  .getElementById(content.elements.projectsSectionId)
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={() => router.push(`/${locale}/web-solutions`)}
             >
               <FiCode /> {content.buttons.viewProjects.text}
             </motion.button>

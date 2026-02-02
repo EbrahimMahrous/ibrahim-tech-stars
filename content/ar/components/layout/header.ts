@@ -2,17 +2,17 @@ export const headerContent = {
   navItems: {
     home: {
       label: "الرئيسية",
-      title: "الصفحة الرئيسية - ابراهيم ديف",
+      title: "الصفحة الرئيسية - ابراهيم ",
       ariaLabel: "الانتقال إلى الصفحة الرئيسية",
     },
     webSolutions: {
-      label: "حلول الويب والتجارة الإلكترونية",
+      label: "حلول الويب والمتاجر",
       title: "حلول وتطوير مواقع الويب",
       ariaLabel: "عرض خدمات تطوير الويب",
       keywords: ["", "", ""],
     },
     salesEngineer: {
-      label: "مهندس مبيعات",
+      label: "مستشار تقني",
       title: "مهندس مبيعات حلول تقنية",
       ariaLabel: "خدمات مهندس المبيعات التقنية",
       keywords: ["مهندس مبيعات", "حلول تقنية", "استشارات مبيعات"],
@@ -24,7 +24,7 @@ export const headerContent = {
       keywords: ["خدمة عملاء", "دعم فني", "مساعدة عملاء"],
     },
     personalAssistant: {
-      label: "مساعد شخصي",
+      label: "مساعد افتراضي",
       title: "خدمات المساعد الشخصي الافتراضي",
       ariaLabel: "خدمات المساعدة الشخصية",
       keywords: ["مساعد شخصي", "مساعدة افتراضية", "تنظيم المهام"],
@@ -65,8 +65,8 @@ export const headerContent = {
       ariaLabel: "احصل على استشارة مجانية",
     },
     languageSwitch: {
-      arabic: "العربية",
-      english: "English",
+      arabic: "AR",
+      english: "EN",
       switchToArabic: "النسخة العربية من الموقع",
       switchToEnglish: "English version of the website",
     },

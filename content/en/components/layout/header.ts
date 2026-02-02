@@ -28,7 +28,7 @@ export const headerContent = {
       ],
     },
     salesEngineer: {
-      label: "Sales Engineer",
+      label: "Tech Consultant",
       title: "Technical Sales Engineer Solutions",
       ariaLabel: "Technical sales engineer services",
       keywords: ["sales engineer", "technical solutions", "sales consulting"],
@@ -40,7 +40,7 @@ export const headerContent = {
       keywords: ["customer service", "technical support", "client assistance"],
     },
     personalAssistant: {
-      label: "Personal Assistant",
+      label: "Virtual Assistant",
       title: "Virtual Personal Assistant Services",
       ariaLabel: "Personal assistance services",
       keywords: ["personal assistant", "virtual assistant", "task management"],
@@ -88,8 +88,8 @@ export const headerContent = {
       ariaLabel: "Get a free consultation",
     },
     languageSwitch: {
-      arabic: "العربية",
-      english: "English",
+      arabic: "AR",
+      english: "EN",
       switchToArabic: "Arabic version of the website",
       switchToEnglish: "English version of the website",
     },
